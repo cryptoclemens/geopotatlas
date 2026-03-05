@@ -91,4 +91,17 @@ export const WMS_LAYERS = {
     params: { layers: '0', format: 'image/png', transparent: true, version: '1.3.0' },
     label: 'HÜK250 Hydrogeologie', opacity: 0.6,
   },
+  // LANUV NRW – Wärmekataster
+  'waerme-wms': {
+    url: 'https://www.wms.nrw.de/umwelt/waermekataster',
+    params: { layers: 'waermebedarf_wohngebaeude', format: 'image/png', transparent: true, version: '1.3.0' },
+    label: 'LANUV Wärmebedarf Wohngebäude', opacity: 0.65,
+    attribution: '© LANUV NRW',
+  },
+  'waerme-bbsr': {
+    url: 'https://www.wms.nrw.de/umwelt/waermekataster',
+    params: { layers: 'waerme_wohngebaeude', format: 'image/png', transparent: true, version: '1.3.0' },
+    label: 'LANUV Wärme Wohngebäude (BBSR)', opacity: 0.65,
+    attribution: '© LANUV NRW / BBSR',
+  },
 }

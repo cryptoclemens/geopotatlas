@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Ortssuche from './Ortssuche'
 import LayerGroup, { SubItem, AqChips } from './LayerGroup'
+import { useUIStore } from '../../store/useUIStore'
 
 const SOURCES = [
   { color:'#5bafd6', name:'BGR Geologie (WMS)', desc:'GÜK200 · IGME5000 · HÜK250', type:'WMS' },
@@ -8,7 +9,17 @@ const SOURCES = [
   { color:'#f0c040', name:'OpenStreetMap', desc:'Fernwärme-Netze · Wärmequellen', type:'OSM' },
   { color:'#5bd68a', name:'Fernwärme-Statistik', desc:'BWP · Stadtwerke-Berichte 2023', type:'Statistik' },
   { color:'#d67c5b', name:'BfEE Abwärme-Atlas', desc:'Industrielle Abwärmepotenziale DE', type:'BfEE' },
+  { color:'#e8a857', name:'LANUV NRW', desc:'Wärmekataster Wohngebäude NRW', type:'WMS' },
 ]
+
+// WMS badge component
+function WmsBadge({ layerKey }) {
+  const wmsBadges = useUIStore(s => s.wmsBadges)
+  const status = wmsBadges[layerKey]
+  if (!status || status === 'probing') return <span className="wms-badge wms-probing" title="Prüfe…">⏳</span>
+  if (status === 'live') return <span className="wms-badge wms-live" title="WMS erreichbar">●</span>
+  return <span className="wms-badge wms-error" title="WMS nicht erreichbar">✗</span>
+}
 
 export default function Sidebar() {
   const [srcOpen, setSrcOpen] = useState(false)
@@ -53,12 +64,25 @@ export default function Sidebar() {
           label="Geothermie-Höffigkeit"
           dotColor="#a78bfa"
           dotShape="square"
-          groupKeys={['geo-egdi','geo-bgr','geo-huek250']}
+          groupKeys={['geo-egdi','geo-bgr','geo-huek250','waerme-wms','waerme-bbsr']}
           defaultOpen={false}
         >
-          <SubItem layerKey="geo-egdi"    label="Lockergestein"          dotColor="#5bd6c8" dotShape="square" badge="WMS" />
-          <SubItem layerKey="geo-bgr"     label="Festgestein &lt;1.000 m" dotColor="#c8a840" dotShape="square" badge="WMS" />
-          <SubItem layerKey="geo-huek250" label="Festgestein &gt;1.000 m" dotColor="#b05050" dotShape="square" badge="WMS" />
+          <SubItem layerKey="geo-egdi"    label="Lockergestein"            dotColor="#5bd6c8" dotShape="square" badge="WMS">
+            <WmsBadge layerKey="geo-egdi" />
+          </SubItem>
+          <SubItem layerKey="geo-bgr"     label="Festgestein &lt;1.000 m"  dotColor="#c8a840" dotShape="square" badge="WMS">
+            <WmsBadge layerKey="geo-bgr" />
+          </SubItem>
+          <SubItem layerKey="geo-huek250" label="Festgestein &gt;1.000 m"  dotColor="#b05050" dotShape="square" badge="WMS">
+            <WmsBadge layerKey="geo-huek250" />
+          </SubItem>
+          <div className="leg-section-label">LANUV NRW</div>
+          <SubItem layerKey="waerme-wms"  label="Wärmebedarf Wohngebäude"  dotColor="#e8a857" dotShape="square" badge="WMS">
+            <WmsBadge layerKey="waerme-wms" />
+          </SubItem>
+          <SubItem layerKey="waerme-bbsr" label="Wärme Wohngebäude (BBSR)" dotColor="#e8c857" dotShape="square" badge="WMS">
+            <WmsBadge layerKey="waerme-bbsr" />
+          </SubItem>
         </LayerGroup>
 
         <LayerGroup
@@ -87,6 +111,9 @@ export default function Sidebar() {
           <SubItem layerKey="fw-cities-hi"  label="Fernwärme &gt;50%"   dotColor="#5bd68a" dotShape="circle" />
           <SubItem layerKey="fw-cities-mid" label="Fernwärme 30–50%"    dotColor="#e8a857" dotShape="circle" />
           <SubItem layerKey="fw-cities-lo"  label="Fernwärme 20–30%"    dotColor="#5bafd6" dotShape="circle" />
+          <div className="leg-section-label">Ausbau</div>
+          <SubItem layerKey="fw-expand" label="FW-Ausbau geplant"   dotColor="#5bd68a" dotShape="circle" badge="Neu" />
+          <SubItem layerKey="fw-new"    label="Neuanschluss-Gebiete" dotColor="#a87cd6" dotShape="circle" badge="Neu" />
         </LayerGroup>
       </div>
 

@@ -31,7 +31,7 @@ export function AqChips() {
 }
 
 // ── SubItem ─────────────────────────────────────────────────────────────────
-export function SubItem({ layerKey, label, dotColor, dotShape = 'circle', badge }) {
+export function SubItem({ layerKey, label, dotColor, dotShape = 'circle', badge, children }) {
   const { layers, toggle } = useLayerStore()
   const on = layers[layerKey] ?? false
   return (
@@ -45,6 +45,7 @@ export function SubItem({ layerKey, label, dotColor, dotShape = 'circle', badge 
       )}
       <span className="sub-label">{label}</span>
       {badge && <span className="loading-badge">{badge}</span>}
+      {children}
     </div>
   )
 }

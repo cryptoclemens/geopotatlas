@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
-import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import BaseLayers from './BaseLayers'
 import AquiferLayers from './AquiferLayers'
 import WMSLayers from './WMSLayers'
 import HeatSourceLayers from './HeatSourceLayers'
 import FWCitiesLayer from './FWCitiesLayer'
+import ViewportCounter from './ViewportCounter'
 
 // Exposes map instance globally for flyTo from Ortssuche
 function MapRef() {
@@ -34,6 +35,7 @@ export default function MapView() {
       <WMSLayers />
       <HeatSourceLayers />
       <FWCitiesLayer />
+      <ViewportCounter />
     </MapContainer>
   )
 }

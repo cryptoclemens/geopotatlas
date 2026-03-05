@@ -14,6 +14,9 @@ const DEFAULT_LAYERS = {
   'geo-egdi':        false,
   'geo-bgr':         true,
   'geo-huek250':     true,
+  // LANUV Wärmekataster (WMS)
+  'waerme-wms':      false,
+  'waerme-bbsr':     false,
   // (Ab-)Wärmeproduzenten
   'heat-dc':         true,
   'heat-pp':         false,
@@ -24,6 +27,9 @@ const DEFAULT_LAYERS = {
   'fw-cities-hi':    true,
   'fw-cities-mid':   true,
   'fw-cities-lo':    true,
+  // FW Ausbau (neu)
+  'fw-expand':       false,
+  'fw-new':          false,
   // Legacy (Höffigkeit polygons)
   'hoeff-locker':    false,
 }

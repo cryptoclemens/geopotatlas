@@ -3,13 +3,60 @@ import Sidebar from './components/sidebar/Sidebar'
 import Legend from './components/ui/Legend'
 import InfoPanel from './components/ui/InfoPanel'
 import FeedbackModal from './components/ui/FeedbackModal'
+import Loader from './components/ui/Loader'
+import OsmSpinner from './components/ui/OsmSpinner'
+import BootLog from './components/ui/BootLog'
+import StatListPanel from './components/ui/StatListPanel'
+import PrintDialog from './components/ui/PrintDialog'
+import PwScreen from './components/ui/PwScreen'
+import WelcomeOverlay from './components/ui/WelcomeOverlay'
+import GuidedTour from './components/ui/GuidedTour'
+import { useUIStore } from './store/useUIStore'
 
 const VERSION = 'v1.0 React'
 
+function StatTile({ statKey, label, title }) {
+  const statCounts = useUIStore(s => s.statCounts)
+  const heatMarkers = useUIStore(s => s.heatMarkers)
+  const showStatList = useUIStore(s => s.showStatList)
+  const val = statCounts[statKey]
+
+  function handleClick() {
+    // Map stat key to heat layer key
+    const layerMap = { dc: 'heat-dc', pp: 'heat-pp', abw: 'heat-abw', fw: null }
+    const layerKey = layerMap[statKey]
+    const items = layerKey ? (heatMarkers[layerKey] || []) : []
+    showStatList(statKey, items)
+  }
+
+  return (
+    <div className="stat stat-clickable" title={title} onClick={handleClick}>
+      <div className="stat-v">{val !== null && val !== undefined ? val : '—'}</div>
+      <div className="stat-l">im Ausschnitt<br /><small style={{opacity:.7}}>{label}</small></div>
+    </div>
+  )
+}
+
 export default function App() {
+  const pwPassed = useUIStore(s => s.pwPassed)
+  const loaderDone = useUIStore(s => s.loaderDone)
+  const showPrintDialog = useUIStore(s => s.showPrintDialog)
+
+  // Show PW screen if not passed
+  if (!pwPassed) return <PwScreen />
+
   return (
     <>
-      {/* ── Header ─────────────────────────────── */}
+      {/* ── Loader (initial) ─────────────────── */}
+      <Loader />
+
+      {/* ── Welcome Overlay (first visit) ───── */}
+      {loaderDone && <WelcomeOverlay />}
+
+      {/* ── Guided Tour ─────────────────────── */}
+      <GuidedTour />
+
+      {/* ── Header ─────────────────────────── */}
       <header>
         <div className="hdr-left">
           {/* Vencly Logo */}
@@ -26,23 +73,15 @@ export default function App() {
         {/* Stat tiles */}
         <div className="hdr-stats">
           <span className="potentiale-label">Potentiale</span>
-          <div className="stat" title="Rechenzentren im Ausschnitt">
-            <div className="stat-v" id="stat-dc">—</div>
-            <div className="stat-l">im Ausschnitt<br /><small style={{opacity:.7}}>Rechenzentren</small></div>
-          </div>
-          <div className="stat" title="Kraftwerke/Industrie im Ausschnitt">
-            <div className="stat-v" id="stat-pp">—</div>
-            <div className="stat-l">im Ausschnitt<br /><small style={{opacity:.7}}>Kraftwerke/Ind.</small></div>
-          </div>
-          <div className="stat" title="BfEE-Abwärmestandorte im Ausschnitt">
-            <div className="stat-v" id="stat-abw">—</div>
-            <div className="stat-l">im Ausschnitt<br /><small style={{opacity:.7}}>Abwärme (BfEE)</small></div>
-          </div>
-          <div className="stat" title="Fernwärme-Städte &gt;20% im Ausschnitt">
-            <div className="stat-v" id="stat-fw">—</div>
-            <div className="stat-l">im Ausschnitt<br /><small style={{opacity:.7}}>FW-Städte &gt;20%</small></div>
-          </div>
-          <button className="print-btn-hdr" title="Drucken" onClick={() => window.print()}>🖨</button>
+          <StatTile statKey="dc"  label="Rechenzentren"  title="Rechenzentren im Ausschnitt" />
+          <StatTile statKey="pp"  label="Kraftwerke/Ind." title="Kraftwerke/Industrie im Ausschnitt" />
+          <StatTile statKey="abw" label="Abwärme (BfEE)" title="BfEE-Abwärmestandorte im Ausschnitt" />
+          <StatTile statKey="fw"  label="FW-Städte >20%" title="Fernwärme-Städte >20% im Ausschnitt" />
+          <button
+            className="print-btn-hdr"
+            title="Drucken / Exportieren"
+            onClick={showPrintDialog}
+          >🖨</button>
         </div>
       </header>
 
@@ -52,13 +91,20 @@ export default function App() {
         <Sidebar />
         <InfoPanel />
         <Legend />
+        {/* OSM Spinner */}
+        <OsmSpinner />
+        {/* Boot Log */}
+        <BootLog />
         {/* powered by Vencly */}
         <div className="powered-by">
           powered by <a href="https://www.vencly.com" target="_blank" rel="noopener">Venclÿ</a>
         </div>
       </div>
 
+      {/* ── Modals / Overlays ──────────────────── */}
       <FeedbackModal />
+      <StatListPanel />
+      <PrintDialog />
     </>
   )
 }

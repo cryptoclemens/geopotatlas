@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { CircleMarker, Popup, useMapEvents } from 'react-leaflet'
 import { useLayerStore } from '../../store/useLayerStore'
+import { useUIStore } from '../../store/useUIStore'
 
 const HEAT_CONFIGS = [
   {
@@ -51,14 +52,18 @@ function getCenter(el) {
 function SingleHeatLayer({ config, bbox }) {
   const [markers, setMarkers] = useState([])
   const cacheRef = useRef({})
+  const { showOsmSpinner, hideOsmSpinner, setHeatMarkers, addLog } = useUIStore.getState()
 
   useEffect(() => {
     if (!bbox) return
     const cacheKey = `${config.key}|${bbox}`
     if (cacheRef.current[cacheKey]) {
-      setMarkers(cacheRef.current[cacheKey])
+      const cached = cacheRef.current[cacheKey]
+      setMarkers(cached)
+      setHeatMarkers(config.key, cached.map(el => ({ lat: el._c[0], lng: el._c[1], name: el.tags?.name, tags: el.tags })))
       return
     }
+    showOsmSpinner(config.label)
     const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(config.query(bbox))}`
     fetch(url)
       .then(r => r.json())
@@ -70,9 +75,16 @@ function SingleHeatLayer({ config, bbox }) {
           .filter(el => el._c)
         cacheRef.current[cacheKey] = pts
         setMarkers(pts)
+        setHeatMarkers(config.key, pts.map(el => ({ lat: el._c[0], lng: el._c[1], name: el.tags?.name, tags: el.tags })))
+        addLog(`${config.label}: ${pts.length} Objekte geladen`, 'ok')
       })
-      .catch(() => {})
-  }, [bbox, config])
+      .catch(() => {
+        addLog(`${config.label}: Overpass-Fehler`, 'error')
+      })
+      .finally(() => {
+        hideOsmSpinner()
+      })
+  }, [bbox]) // eslint-disable-line
 
   return markers.map((el, i) => {
     const tags = el.tags || {}
@@ -129,32 +141,22 @@ export default function HeatSourceLayers() {
   const layers = useLayerStore(s => s.layers)
   const [bbox, setBbox] = useState(null)
 
+  function updateBbox(map) {
+    const b = map.getBounds()
+    setBbox(`${b.getSouth().toFixed(4)},${b.getWest().toFixed(4)},${b.getNorth().toFixed(4)},${b.getEast().toFixed(4)}`)
+  }
+
   const map = useMapEvents({
-    moveend() {
-      const b = map.getBounds()
-      setBbox(`${b.getSouth().toFixed(4)},${b.getWest().toFixed(4)},${b.getNorth().toFixed(4)},${b.getEast().toFixed(4)}`)
-    },
-    zoomend() {
-      const b = map.getBounds()
-      setBbox(`${b.getSouth().toFixed(4)},${b.getWest().toFixed(4)},${b.getNorth().toFixed(4)},${b.getEast().toFixed(4)}`)
-    },
-    load() {
-      const b = map.getBounds()
-      setBbox(`${b.getSouth().toFixed(4)},${b.getWest().toFixed(4)},${b.getNorth().toFixed(4)},${b.getEast().toFixed(4)}`)
-    },
+    moveend() { updateBbox(map) },
+    zoomend() { updateBbox(map) },
   })
 
-  // Set initial bbox
   useEffect(() => {
-    if (map) {
-      const b = map.getBounds()
-      setBbox(`${b.getSouth().toFixed(4)},${b.getWest().toFixed(4)},${b.getNorth().toFixed(4)},${b.getEast().toFixed(4)}`)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (map) updateBbox(map)
+  }, []) // eslint-disable-line
 
   const zoom = map ? map.getZoom() : 0
-  if (zoom < 7) return null // hide at very low zoom
+  if (zoom < 7) return null
 
   const activeConfigs = HEAT_CONFIGS.filter(c => layers[c.key])
   if (!bbox || activeConfigs.length === 0) return null
