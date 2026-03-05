@@ -291,6 +291,7 @@ header {
   border:1px solid var(--border); border-radius:10px;
   box-shadow:0 16px 48px rgba(0,0,0,.55);
   padding:0; overflow:hidden;
+  min-width:480px !important;
 }
 .det-popup-wrap .leaflet-popup-tip-container { display:none; }
 .det-popup-wrap .leaflet-popup-content { margin:0; width:auto !important; }
@@ -347,28 +348,33 @@ header {
   font-family:'Segoe UI','Helvetica Neue',sans-serif;
 }
 #pw-box {
-  background:rgba(10,22,40,.9); border:1px solid rgba(74,144,194,.25);
-  border-radius:14px; padding:40px 48px; text-align:center; max-width:380px; width:90%;
-  box-shadow:0 20px 60px rgba(0,0,0,.7);
+  background:rgba(10,22,40,.92); border:1px solid rgba(74,144,194,.25);
+  border-radius:16px; padding:44px 52px; text-align:center; max-width:400px; width:92%;
+  box-shadow:0 24px 64px rgba(0,0,0,.75);
 }
-#pw-logo { font-size:24px; font-weight:700; color:var(--accent2); letter-spacing:1px; margin-bottom:6px; }
-#pw-subtitle { font-size:12px; color:var(--muted); margin-bottom:28px; }
-#pw-input-wrap { display:flex; gap:8px; margin-bottom:12px; }
+#pw-logo {
+  font-size:26px; font-weight:700; letter-spacing:2px; margin-bottom:6px;
+}
+#pw-logo-bowa { color:var(--accent2); }
+#pw-logo-geo  { color:var(--accent); margin-left:8px; font-weight:400; }
+#pw-subtitle  { font-size:12px; color:var(--muted); margin-bottom:32px; letter-spacing:.3px; }
+#pw-input-wrap { display:flex; gap:0; margin-bottom:10px; border:1px solid rgba(74,144,194,.3); border-radius:10px; overflow:hidden; }
 #pw-input {
-  flex:1; background:rgba(255,255,255,.06); border:1px solid rgba(74,144,194,.3);
-  border-radius:8px; padding:10px 14px; color:var(--text); font-size:13px;
-  outline:none; transition:border-color .2s;
+  flex:1; background:rgba(255,255,255,.05); border:none;
+  padding:12px 16px; color:var(--text); font-size:14px;
+  outline:none;
 }
-#pw-input:focus { border-color:var(--accent2); }
+#pw-input::placeholder { color:var(--muted); }
 #pw-btn {
-  background:var(--accent2); border:none; border-radius:8px; padding:10px 18px;
-  color:#fff; font-size:13px; font-weight:600; cursor:pointer; transition:opacity .2s;
+  background:var(--accent2); border:none; padding:12px 20px;
+  color:#fff; font-size:16px; font-weight:700; cursor:pointer;
+  transition:opacity .2s; flex-shrink:0;
 }
 #pw-btn:hover { opacity:.85; }
-#pw-error { font-size:12px; color:#d65b5b; margin-top:4px; min-height:16px; }
-.pw-shake { animation: shake .4s ease; }
-@keyframes shake {
-  0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)}
+#pw-error { font-size:12px; color:#e05555; margin-top:6px; min-height:18px; }
+.pw-shake { animation: pw-shake .4s ease; }
+@keyframes pw-shake {
+  0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)}
 }
 
 /* ══════════════════════════════════════════════════════

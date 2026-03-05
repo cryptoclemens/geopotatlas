@@ -13,7 +13,9 @@ import WelcomeOverlay from './components/ui/WelcomeOverlay'
 import GuidedTour from './components/ui/GuidedTour'
 import { useUIStore } from './store/useUIStore'
 
-const VERSION = 'v1.0 React'
+// Injected at build time by vite.config.js define
+/* global __APP_VERSION__, __BUILD_DATE__ */
+const VERSION = `v${typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '1.0.0'} · ${typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : ''}`
 
 function StatTile({ statKey, label, title }) {
   const statCounts = useUIStore(s => s.statCounts)

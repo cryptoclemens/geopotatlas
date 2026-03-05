@@ -10,17 +10,19 @@ export default function PwScreen() {
   const [error, setError] = useState(false)
   const [fading, setFading] = useState(false)
 
-  // Check localStorage on mount
+  // Auto-pass if localStorage has the token
   useEffect(() => {
-    if (localStorage.getItem(LS_KEY) === '1') setPwPassed()
+    if (localStorage.getItem(LS_KEY) === '1') {
+      setPwPassed()
+    }
   }, [setPwPassed])
 
   function submit(e) {
     e.preventDefault()
-    if (val === CORRECT_PW) {
+    if (val.trim() === CORRECT_PW) {
       localStorage.setItem(LS_KEY, '1')
       setFading(true)
-      setTimeout(setPwPassed, 320)
+      setTimeout(setPwPassed, 350)
     } else {
       setError(true)
       setVal('')
@@ -29,23 +31,27 @@ export default function PwScreen() {
   }
 
   return (
-    <div id="pw-screen" style={{ opacity: fading ? 0 : 1, transition: 'opacity .3s' }}>
+    <div id="pw-screen" style={{ opacity: fading ? 0 : 1, transition: 'opacity .35s ease' }}>
       <div id="pw-box">
-        <div className="pw-logo">🌍</div>
-        <div className="pw-title">Geothermie-Potential-Atlas</div>
-        <div className="pw-sub">Internes Tool — bitte Passwort eingeben</div>
+        <div id="pw-logo">
+          <span id="pw-logo-bowa">BOWA</span>
+          <span id="pw-logo-geo">Geothermie</span>
+        </div>
+        <div id="pw-subtitle">Internes Tool — Zugang nur mit Passwort</div>
         <form onSubmit={submit}>
-          <input
-            id="pw-input"
-            type="password"
-            value={val}
-            onChange={e => setVal(e.target.value)}
-            placeholder="Passwort…"
-            autoFocus
-            className={error ? 'pw-shake' : ''}
-          />
-          {error && <div id="pw-error">Falsches Passwort</div>}
-          <button id="pw-btn" type="submit">Einloggen →</button>
+          <div id="pw-input-wrap">
+            <input
+              id="pw-input"
+              type="password"
+              value={val}
+              onChange={e => setVal(e.target.value)}
+              placeholder="Passwort…"
+              autoFocus
+              className={error ? 'pw-shake' : ''}
+            />
+            <button id="pw-btn" type="submit">→</button>
+          </div>
+          {error && <div id="pw-error">❌ Falsches Passwort</div>}
         </form>
       </div>
     </div>
