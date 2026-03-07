@@ -7,7 +7,7 @@ const TOUR = [
   },
   {
     title: 'Geothermale Temperaturen (WMS)',
-    body: 'Die <strong>WMS-Layer</strong> im linken Panel zeigen Untergrundtemperaturen — pan-europäisch via EGDI und hochaufgelöst via BGR. <strong>LANUV-Layer</strong> zeigen Wärmebedarfsdichten für NRW.',
+    body: 'Die <strong>WMS-Layer</strong> im linken Panel zeigen Untergrundtemperaturen — pan-europäisch via EGDI und hochaufgelöst via BGR. <strong>Zensus-2022-Layer</strong> zeigen Heizungsart und Energieträger auf 100m-Raster (bundesweit).',
   },
   {
     title: 'Fernwärme-Märkte',

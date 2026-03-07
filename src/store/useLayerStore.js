@@ -14,7 +14,7 @@ const DEFAULT_LAYERS = {
   'geo-egdi':        false,
   'geo-bgr':         true,
   'geo-huek250':     true,
-  // LANUV Wärmekataster (WMS)
+  // Zensus 2022 Heizungsstruktur (WMS, 100m)
   'waerme-wms':      false,
   'waerme-bbsr':     false,
   // (Ab-)Wärmeproduzenten

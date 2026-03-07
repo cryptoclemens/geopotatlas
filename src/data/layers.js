@@ -82,26 +82,30 @@ export const WMS_LAYERS = {
     label: 'IGME5000 Geologie Europa', opacity: 0.55,
   },
   'geo-bgr': {
-    url: 'https://services.bgr.de/wms/geologie/guek200/',
-    params: { layers: '1', format: 'image/png', transparent: true, version: '1.3.0' },
-    label: 'GÜK200 Geologie', opacity: 0.6,
+    // GÜK200 wurde abgeschaltet → offizieller Nachfolger GÜK250 (BGR, 2024)
+    url: 'https://services.bgr.de/wms/geologie/guek250/',
+    params: { layers: '0', format: 'image/png', transparent: true, version: '1.3.0' },
+    label: 'GÜK250 Geologie', opacity: 0.6,
   },
   'geo-huek250': {
     url: 'https://services.bgr.de/wms/grundwasser/huek250/',
     params: { layers: '0', format: 'image/png', transparent: true, version: '1.3.0' },
     label: 'HÜK250 Hydrogeologie', opacity: 0.6,
   },
-  // LANUV NRW – Wärmekataster
+  // Zensus 2022 – Heizungsstruktur (Ersatz für abgeschalteten LANUV Wärmekataster)
+  // Quelle: Statistisches Bundesamt / IT.NRW via Geoportal NRW
+  // WMS: https://www.gis-idmz.nrw.de/arcgis/services/stba/zensusatlas_energie_100m/MapServer/WMSServer
+  // Hinweis: MaxScaleDenominator ~1:68.000 → Kacheln nur ab Zoom ~13 sichtbar
   'waerme-wms': {
-    url: 'https://www.wms.nrw.de/umwelt/waermekataster',
-    params: { layers: 'waermebedarf_wohngebaeude', format: 'image/png', transparent: true, version: '1.3.0' },
-    label: 'LANUV Wärmebedarf Wohngebäude', opacity: 0.65,
-    attribution: '© LANUV NRW',
+    url: 'https://www.gis-idmz.nrw.de/arcgis/services/stba/zensusatlas_energie_100m/MapServer/WMSServer',
+    params: { layers: '0', format: 'image/png', transparent: true, version: '1.3.0' },
+    label: 'Zensus 2022: Heizungsart (100m)', opacity: 0.7,
+    attribution: '© Statistisches Bundesamt (Destatis) / IT.NRW, Zensus 2022',
   },
   'waerme-bbsr': {
-    url: 'https://www.wms.nrw.de/umwelt/waermekataster',
-    params: { layers: 'waerme_wohngebaeude', format: 'image/png', transparent: true, version: '1.3.0' },
-    label: 'LANUV Wärme Wohngebäude (BBSR)', opacity: 0.65,
-    attribution: '© LANUV NRW / BBSR',
+    url: 'https://www.gis-idmz.nrw.de/arcgis/services/stba/zensusatlas_energie_100m/MapServer/WMSServer',
+    params: { layers: '1', format: 'image/png', transparent: true, version: '1.3.0' },
+    label: 'Zensus 2022: Energieträger Heizung (100m)', opacity: 0.7,
+    attribution: '© Statistisches Bundesamt (Destatis) / IT.NRW, Zensus 2022',
   },
 }
