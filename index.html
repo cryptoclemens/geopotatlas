@@ -5,12 +5,105 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌍</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Geothermie-Potential-Atlas – interaktive Karte tiefer Aquifersysteme in Deutschland" />
-    <title>Geothermie-Potential-Atlas</title>
+    <title>Geothermie-Skalierungspotenzial v1.2.1</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script type="module" crossorigin src="/geopotaltals/assets/index-CXjRDLx0.js"></script>
     <link rel="stylesheet" crossorigin href="/geopotaltals/assets/index-DB2QrsvX.css">
+    <style>
+      #pw-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #0d1117;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #pw-box {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 40px 48px;
+        text-align: center;
+        width: 340px;
+        box-shadow: 0 16px 48px rgba(0,0,0,.6);
+      }
+      #pw-box h2 {
+        color: #e6edf3;
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 0 0 6px;
+      }
+      #pw-box p {
+        color: #8b949e;
+        font-size: 0.85rem;
+        margin: 0 0 24px;
+      }
+      #pw-input {
+        width: 100%;
+        box-sizing: border-box;
+        background: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        color: #e6edf3;
+        font-size: 1rem;
+        padding: 10px 14px;
+        outline: none;
+        transition: border-color .15s;
+        margin-bottom: 12px;
+      }
+      #pw-input:focus { border-color: #388bfd; }
+      #pw-input.error { border-color: #f85149; }
+      #pw-btn {
+        width: 100%;
+        background: #238636;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 10px;
+        cursor: pointer;
+        transition: background .15s;
+      }
+      #pw-btn:hover { background: #2ea043; }
+      #pw-error {
+        color: #f85149;
+        font-size: 0.82rem;
+        margin-top: 10px;
+        min-height: 1.2em;
+      }
+    </style>
   </head>
   <body style="margin:0;padding:0;overflow:hidden">
+    <div id="pw-screen">
+      <div id="pw-box">
+        <h2>Geothermie-Skalierungspotenzial v1.2.1</h2>
+        <p>Zugang nur für autorisierte Nutzer</p>
+        <input id="pw-input" type="password" placeholder="Passwort eingeben"
+               onkeydown="if(event.key==='Enter')checkPw()" autofocus />
+        <button id="pw-btn" onclick="checkPw()">Zugang bestätigen</button>
+        <div id="pw-error"></div>
+      </div>
+    </div>
     <div id="root"></div>
+    <script>
+      function checkPw() {
+        var val = document.getElementById('pw-input').value;
+        var inp = document.getElementById('pw-input');
+        var err = document.getElementById('pw-error');
+        if (val === 'BOWA2026') {
+          var scr = document.getElementById('pw-screen');
+          scr.style.transition = 'opacity .3s';
+          scr.style.opacity = '0';
+          setTimeout(function() { scr.remove(); }, 320);
+        } else {
+          inp.classList.add('error');
+          err.textContent = 'Falsches Passwort. Bitte erneut versuchen.';
+          setTimeout(function() { inp.classList.remove('error'); }, 1000);
+        }
+      }
+    </script>
   </body>
 </html>
