@@ -1,6 +1,13 @@
 #!/bin/bash
 # Auto-bump patch version on push (nur wenn gh-pages-Struktur vorhanden)
 
+# Nicht bumpen wenn direkt auf gh-pages gepusht wird (Version bereits aktuell)
+while read local_ref local_sha remote_ref remote_sha; do
+  if echo "$remote_ref" | grep -q "gh-pages"; then
+    exit 0
+  fi
+done
+
 if [ ! -f "index.html" ] || [ ! -d "assets" ]; then
   exit 0
 fi
