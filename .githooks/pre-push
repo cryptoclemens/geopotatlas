@@ -17,6 +17,12 @@ if [ -z "$BUNDLE" ]; then
   exit 0
 fi
 
+# Nicht bumpen wenn letzter Commit bereits ein Version-Bump war
+LAST_MSG=$(git log -1 --pretty=%s)
+if echo "$LAST_MSG" | grep -q "auto version bump"; then
+  exit 0
+fi
+
 # Aktuelle Version aus index.html lesen
 CURRENT=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' index.html | head -1)
 if [ -z "$CURRENT" ]; then
