@@ -41,8 +41,12 @@ sed -i "s/${CURRENT}/${NEW}/g" index.html
 # Bundle-Versionskonstante aktualisieren (const kv="vX.Y.Z")
 sed -i "s/const kv=\"${CURRENT}\"/const kv=\"${NEW}\"/" "$BUNDLE"
 
-# Committen
+# Committen und direkt pushen
 git add index.html "$BUNDLE"
 git commit -m "deploy: ${NEW} (auto version bump)"
+
+# Version-Bump-Commit sofort pushen (verhindert "unpushed commits"-Warnung)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git push origin "$BRANCH"
 
 echo "🔢 Version: ${CURRENT} → ${NEW}"
