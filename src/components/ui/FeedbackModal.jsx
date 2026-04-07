@@ -5,10 +5,9 @@ const SUPABASE_URL = 'https://uqpdnylqlnnifwmziyer.supabase.co'
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcGRueWxxbG5uaWZ3bXppeWVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MzgwOTgsImV4cCI6MjA4ODMxNDA5OH0.ttsDjRn8OPEZC_F3Hew_3rv-aCTjvRJpeTdtmTIfUKI'
 
 // ── GitHub feedback.md (Kanal 2) ──────────────────────────────────────────────
-// Fine-grained PAT: Einstellungen → Developer Settings → Fine-grained tokens
-// Berechtigungen: "Contents: Read and write" auf cryptoclemens/geopotatlas
-// WICHTIG: Keinen Admin-Token verwenden – dieser Token ist im Bundle sichtbar!
-const GH_FEEDBACK_TOKEN  = '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'   // <-- hier deinen Fine-grained Token eintragen
+// Token wird zur Build-Zeit via GitHub Actions Secret VITE_GH_FEEDBACK_TOKEN
+// injiziert — nie direkt im Sourcecode hinterlegen!
+const GH_FEEDBACK_TOKEN  = import.meta.env.VITE_GH_FEEDBACK_TOKEN || ''
 const GH_FEEDBACK_REPO   = 'cryptoclemens/geopotatlas'
 const GH_FEEDBACK_BRANCH = 'main'
 const GH_FEEDBACK_FILE   = 'feedback.md'
