@@ -105,6 +105,20 @@ export default function Sidebar() {
         </LayerGroup>
 
         <LayerGroup
+          id="aix-dhn"
+          label="Fernwärme-Netze DE (AixDHN)"
+          dotColor="#f97316"
+          dotShape="circle"
+          groupKeys={['aix-dhn']}
+          defaultOpen={false}
+        >
+          <SubItem layerKey="aix-dhn" label="Netz-Centroids (RWTH)" dotColor="#f97316" dotShape="circle" badge="RWTH" />
+          <div style={{ fontSize: 10, color: 'var(--muted)', padding: '2px 8px 6px', lineHeight: 1.4 }}>
+            8.684 Fernwärmenetze · ganz Deutschland · Zensus 2022
+          </div>
+        </LayerGroup>
+
+        <LayerGroup
           id="kwp"
           label="Wärmeplanung NRW (KWP)"
           dotColor="#22d3ee"

@@ -33,6 +33,8 @@ const DEFAULT_LAYERS = {
   'fw-new':          false,
   // Legacy (Höffigkeit polygons)
   'hoeff-locker':    false,
+  // AixDHN – Fernwärme-Netze Deutschland (RWTH Aachen)
+  'aix-dhn':            false,
   // KWP – Kommunale Wärmeplanung NRW (LANUK)
   'kwp-energietraeger': false,
   'kwp-waermecluster':  false,
