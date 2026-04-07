@@ -1,0 +1,167 @@
+{
+  "type": "FeatureCollection",
+  "name": "KWP_Energietraeger_NRW",
+  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Duisburg",
+        "AGS": "05112000",
+        "ENERGIETRAEGER": "Erdgas",
+        "ANTEIL_PCT": 58.2,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 248500,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.6200, 51.3600], [6.8300, 51.3600],
+          [6.8300, 51.5100], [6.6200, 51.5100],
+          [6.6200, 51.3600]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Essen",
+        "AGS": "05113000",
+        "ENERGIETRAEGER": "Fernwärme",
+        "ANTEIL_PCT": 32.4,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 312000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.8400, 51.3800], [7.1500, 51.3800],
+          [7.1500, 51.5500], [6.8400, 51.5500],
+          [6.8400, 51.3800]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Dortmund",
+        "AGS": "05913000",
+        "ENERGIETRAEGER": "Erdgas",
+        "ANTEIL_PCT": 61.7,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 298000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [7.3000, 51.4300], [7.6200, 51.4300],
+          [7.6200, 51.6200], [7.3000, 51.6200],
+          [7.3000, 51.4300]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Düsseldorf",
+        "AGS": "05111000",
+        "ENERGIETRAEGER": "Fernwärme",
+        "ANTEIL_PCT": 28.9,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 335000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.6900, 51.1300], [6.9500, 51.1300],
+          [6.9500, 51.3500], [6.6900, 51.3500],
+          [6.6900, 51.1300]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Köln",
+        "AGS": "05315000",
+        "ENERGIETRAEGER": "Wärmepumpe",
+        "ANTEIL_PCT": 8.3,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 512000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.7700, 50.8300], [7.1600, 50.8300],
+          [7.1600, 51.1000], [6.7700, 51.1000],
+          [6.7700, 50.8300]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Gelsenkirchen",
+        "AGS": "05513000",
+        "ENERGIETRAEGER": "Heizöl",
+        "ANTEIL_PCT": 12.1,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 128000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [7.0200, 51.4700], [7.1700, 51.4700],
+          [7.1700, 51.5900], [7.0200, 51.5900],
+          [7.0200, 51.4700]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Krefeld",
+        "AGS": "05114000",
+        "ENERGIETRAEGER": "Erdgas",
+        "ANTEIL_PCT": 64.3,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 119000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.4800, 51.2900], [6.7200, 51.2900],
+          [6.7200, 51.4500], [6.4800, 51.4500],
+          [6.4800, 51.2900]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GEMEINDE": "Mönchengladbach",
+        "AGS": "05116000",
+        "ENERGIETRAEGER": "Erdgas",
+        "ANTEIL_PCT": 59.8,
+        "EINHEIT": "Prozent",
+        "WOHNEINHEITEN": 132000,
+        "QUELLJAHR": 2022
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [6.3300, 51.1300], [6.5800, 51.1300],
+          [6.5800, 51.3000], [6.3300, 51.3000],
+          [6.3300, 51.1300]
+        ]]
+      }
+    }
+  ]
+}

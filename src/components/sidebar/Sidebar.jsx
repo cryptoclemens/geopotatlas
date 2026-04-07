@@ -10,6 +10,7 @@ const SOURCES = [
   { color:'#5bd68a', name:'Fernwärme-Statistik', desc:'BWP · Stadtwerke-Berichte 2023', type:'Statistik' },
   { color:'#d67c5b', name:'BfEE Abwärme-Atlas', desc:'Industrielle Abwärmepotenziale DE', type:'BfEE' },
   { color:'#e8a857', name:'Zensus 2022 (Destatis)', desc:'Heizungsart & Energieträger 100m', type:'WMS' },
+  { color:'#22d3ee', name:'LANUK NRW – KWP', desc:'Kommunale Wärmeplanung NRW: Energieträger & Wärmecluster', type:'GeoJSON' },
 ]
 
 // WMS badge component
@@ -100,6 +101,18 @@ export default function Sidebar() {
           <SubItem layerKey="heat-waste" label="Müllverbrennung (OSM)"   dotColor="#5bd6c8" dotShape="circle" />
           <SubItem layerKey="heat-steel" label="Stahlwerke (OSM)"        dotColor="#d6c85b" dotShape="circle" />
           <SubItem layerKey="heat-abw"   label="Abwärme BfEE"            dotColor="#e8a857" dotShape="square" badge="BfEE" />
+        </LayerGroup>
+
+        <LayerGroup
+          id="kwp"
+          label="Wärmeplanung NRW (KWP)"
+          dotColor="#22d3ee"
+          dotShape="square"
+          groupKeys={['kwp-energietraeger','kwp-waermecluster']}
+          defaultOpen={false}
+        >
+          <SubItem layerKey="kwp-energietraeger" label="Energieträger je Gemeinde" dotColor="#f97316" dotShape="square" badge="LANUK" />
+          <SubItem layerKey="kwp-waermecluster"  label="Wärmecluster-Potenziale"    dotColor="#22c55e" dotShape="square" badge="LANUK" />
         </LayerGroup>
 
         <LayerGroup

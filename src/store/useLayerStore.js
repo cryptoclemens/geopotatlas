@@ -32,6 +32,9 @@ const DEFAULT_LAYERS = {
   'fw-new':          false,
   // Legacy (Höffigkeit polygons)
   'hoeff-locker':    false,
+  // KWP – Kommunale Wärmeplanung NRW (LANUK)
+  'kwp-energietraeger': false,
+  'kwp-waermecluster':  false,
 }
 
 export const useLayerStore = create((set, get) => ({
