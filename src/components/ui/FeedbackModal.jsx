@@ -125,7 +125,7 @@ export default function FeedbackModal() {
     setStatus('sending')
 
     const payload = {
-      page: '/geopotatlas/',
+      page: 'gpa.vencly.com',
       stars: rating,
       categories: cats,
       message,

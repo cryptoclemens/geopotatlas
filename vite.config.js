@@ -7,7 +7,7 @@ const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'))
 const buildDate = new Date().toISOString().slice(0, 10) // YYYY-MM-DD
 
 export default defineConfig({
-  base: '/geopotatlas/',
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),
