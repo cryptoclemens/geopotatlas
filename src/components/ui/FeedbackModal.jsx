@@ -8,7 +8,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // Fine-grained PAT: Einstellungen → Developer Settings → Fine-grained tokens
 // Berechtigungen: "Contents: Read and write" auf cryptoclemens/geopotatlas
 // WICHTIG: Keinen Admin-Token verwenden – dieser Token ist im Bundle sichtbar!
-const GH_FEEDBACK_TOKEN  = ''   // <-- hier deinen Fine-grained Token eintragen
+const GH_FEEDBACK_TOKEN  = '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'   // <-- hier deinen Fine-grained Token eintragen
 const GH_FEEDBACK_REPO   = 'cryptoclemens/geopotatlas'
 const GH_FEEDBACK_BRANCH = 'main'
 const GH_FEEDBACK_FILE   = 'feedback.md'
