@@ -71,7 +71,14 @@ export default function Ortssuche() {
         </div>
       </div>`
 
-    searchMarker = L.marker(ll).addTo(map).bindPopup(popup, { maxWidth: 260 }).openPopup()
+    const icon = L.divIcon({
+      html: '<div style="font-size:22px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))">📍</div>',
+      className: '',
+      iconSize: [22, 22],
+      iconAnchor: [11, 22],
+      popupAnchor: [0, -24],
+    })
+    searchMarker = L.marker(ll, { icon }).addTo(map).bindPopup(popup, { maxWidth: 260 }).openPopup()
     map.flyTo(ll, zoom, { duration: 0.9 })
   }
 
