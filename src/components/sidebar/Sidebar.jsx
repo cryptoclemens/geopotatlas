@@ -111,8 +111,8 @@ export default function Sidebar() {
           groupKeys={['kwp-energietraeger','kwp-waermecluster']}
           defaultOpen={false}
         >
-          <SubItem layerKey="kwp-energietraeger" label="Energieträger je Gemeinde" dotColor="#f97316" dotShape="square" badge="LANUK" />
-          <SubItem layerKey="kwp-waermecluster"  label="Wärmecluster-Potenziale"    dotColor="#22c55e" dotShape="square" badge="LANUK" />
+          <SubItem layerKey="kwp-energietraeger" label="TG-Potenzial Raster"      dotColor="#f97316" dotShape="square" badge="LANUK" />
+          <SubItem layerKey="kwp-waermecluster"  label="FW-Ausbaucluster"          dotColor="#22c55e" dotShape="square" badge="LANUK" />
         </LayerGroup>
 
         <LayerGroup
