@@ -6,7 +6,7 @@ const PROVIDERS = [
   { key: 'perplexity', label: 'Perplexity AI',       placeholder: 'pplx-…' },
 ]
 
-export default function ApiKeySettings({ onClose }) {
+export default function ApiKeySettings({ onClose, isFirstLogin = false }) {
   const profile    = useAuthStore(s => s.profile)
   const saveApiKey = useAuthStore(s => s.saveApiKey)
   const signOut    = useAuthStore(s => s.signOut)
@@ -21,7 +21,7 @@ export default function ApiKeySettings({ onClose }) {
     setStatus('saving')
     await saveApiKey(key.trim(), provider)
     setStatus('saved')
-    setTimeout(() => setStatus('idle'), 1500)
+    setTimeout(() => { setStatus('idle'); if (isFirstLogin) onClose() }, 1200)
   }
 
   return (
@@ -42,7 +42,7 @@ export default function ApiKeySettings({ onClose }) {
         }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>
-              API-Key Einstellungen
+              {isFirstLogin ? '✦ Geopotatlas Pro einrichten' : 'API-Key Einstellungen'}
             </div>
             <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 2 }}>
               {user?.email}
@@ -114,8 +114,16 @@ export default function ApiKeySettings({ onClose }) {
           </button>
         </form>
 
-        {/* Sign out */}
-        <div style={{ padding: '0 20px 16px', textAlign: 'center' }}>
+        {/* Footer */}
+        <div style={{ padding: '0 20px 16px', display: 'flex', justifyContent: 'center', gap: 20 }}>
+          {isFirstLogin && (
+            <button onClick={onClose} style={{
+              background: 'none', border: 'none', color: 'var(--muted)',
+              fontSize: 11, cursor: 'pointer', fontFamily: 'inherit',
+            }}>
+              Später einrichten
+            </button>
+          )}
           <button onClick={signOut} style={{
             background: 'none', border: 'none', color: 'var(--muted)',
             fontSize: 11, cursor: 'pointer', fontFamily: 'inherit',

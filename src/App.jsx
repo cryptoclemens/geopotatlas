@@ -57,9 +57,19 @@ export default function App() {
   const [view, setView]           = useState('map')
   const [showSettings, setShowSettings] = useState(false)
 
-  const { user, loading, init } = useAuthStore()
+  const { user, loading, init, profile } = useAuthStore()
+  const [showApiKeyPrompt, setShowApiKeyPrompt] = useState(false)
 
   useEffect(() => { init() }, []) // eslint-disable-line
+
+  // Show API key prompt once after first login if no key is set
+  useEffect(() => {
+    if (!user || loading) return
+    const dismissed = localStorage.getItem('gpa_api_key_dismissed')
+    if (!profile?.claude_api_key && !dismissed) {
+      setShowApiKeyPrompt(true)
+    }
+  }, [user, profile, loading])
 
   if (loading) return (
     <div style={{ position:'fixed', inset:0, background:'#09152a',
@@ -138,6 +148,15 @@ export default function App() {
       <StatListPanel />
       <PrintDialog />
       {showSettings && <ApiKeySettings onClose={() => setShowSettings(false)} />}
+      {showApiKeyPrompt && !showSettings && (
+        <ApiKeySettings
+          isFirstLogin
+          onClose={() => {
+            localStorage.setItem('gpa_api_key_dismissed', '1')
+            setShowApiKeyPrompt(false)
+          }}
+        />
+      )}
     </>
   )
 }
