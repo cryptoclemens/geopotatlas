@@ -6,11 +6,12 @@ import { useUIStore } from '../../store/useUIStore'
 const SOURCES = [
   { color:'#5bafd6', name:'BGR Geologie (WMS)', desc:'GÜK250 · IGME5000 · HÜK250', type:'WMS' },
   { color:'#4ecdc4', name:'Aquifer-Atlas', desc:'Tiefenaquifer-Potenziale NW-Europa', type:'Intern' },
-  { color:'#f0c040', name:'OpenStreetMap', desc:'Fernwärme-Netze · Wärmequellen', type:'OSM' },
+  { color:'#f0c040', name:'OpenStreetMap', desc:'Fernwärme-Netze · Wärmequellen · Heizwerke', type:'OSM' },
   { color:'#5bd68a', name:'Fernwärme-Statistik', desc:'BWP · Stadtwerke-Berichte 2023', type:'Statistik' },
   { color:'#d67c5b', name:'BfEE Abwärme-Atlas', desc:'Industrielle Abwärmepotenziale DE', type:'BfEE' },
   { color:'#e8a857', name:'Zensus 2022 (Destatis)', desc:'Heizungsart & Energieträger 100m', type:'WMS' },
   { color:'#22d3ee', name:'LANUK NRW – KWP', desc:'Kommunale Wärmeplanung NRW: Energieträger & Wärmecluster', type:'GeoJSON' },
+  { color:'#f97316', name:'AixDHN (RWTH Aachen)', desc:'8.684 Fernwärmenetze · ganz Deutschland · Zensus 2022', type:'GeoJSON' },
 ]
 
 // WMS badge component
