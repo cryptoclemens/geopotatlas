@@ -23,6 +23,7 @@ const DEFAULT_LAYERS = {
   'heat-waste':      false,
   'heat-steel':      false,
   'heat-abw':        false,
+  'heat-fw':         false,
   // Fernwärme-Märkte
   'fw-cities-hi':    true,
   'fw-cities-mid':   true,
@@ -32,6 +33,8 @@ const DEFAULT_LAYERS = {
   'fw-new':          false,
   // Legacy (Höffigkeit polygons)
   'hoeff-locker':    false,
+  // AixDHN – Fernwärme-Netze Deutschland (RWTH Aachen)
+  'aix-dhn':            false,
   // KWP – Kommunale Wärmeplanung NRW (LANUK)
   'kwp-energietraeger': false,
   'kwp-waermecluster':  false,

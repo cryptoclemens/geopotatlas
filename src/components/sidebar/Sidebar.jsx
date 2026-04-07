@@ -93,7 +93,7 @@ export default function Sidebar() {
           label="(Ab-)Wärmeproduzenten"
           dotColor="#d67c5b"
           dotShape="circle"
-          groupKeys={['heat-dc','heat-pp','heat-waste','heat-steel','heat-abw']}
+          groupKeys={['heat-dc','heat-pp','heat-waste','heat-steel','heat-abw','heat-fw']}
           defaultOpen={false}
         >
           <SubItem layerKey="heat-dc"    label="Rechenzentren (OSM)"     dotColor="#a87cd6" dotShape="circle" />
@@ -101,6 +101,21 @@ export default function Sidebar() {
           <SubItem layerKey="heat-waste" label="Müllverbrennung (OSM)"   dotColor="#5bd6c8" dotShape="circle" />
           <SubItem layerKey="heat-steel" label="Stahlwerke (OSM)"        dotColor="#d6c85b" dotShape="circle" />
           <SubItem layerKey="heat-abw"   label="Abwärme BfEE"            dotColor="#e8a857" dotShape="square" badge="BfEE" />
+          <SubItem layerKey="heat-fw"    label="Heizwerke / FW-Netz (OSM)" dotColor="#f97316" dotShape="circle" badge="OSM" />
+        </LayerGroup>
+
+        <LayerGroup
+          id="aix-dhn"
+          label="Fernwärme-Netze DE (AixDHN)"
+          dotColor="#f97316"
+          dotShape="circle"
+          groupKeys={['aix-dhn']}
+          defaultOpen={false}
+        >
+          <SubItem layerKey="aix-dhn" label="Netz-Centroids (RWTH)" dotColor="#f97316" dotShape="circle" badge="RWTH" />
+          <div style={{ fontSize: 10, color: 'var(--muted)', padding: '2px 8px 6px', lineHeight: 1.4 }}>
+            8.684 Fernwärmenetze · ganz Deutschland · Zensus 2022
+          </div>
         </LayerGroup>
 
         <LayerGroup
