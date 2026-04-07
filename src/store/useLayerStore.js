@@ -23,6 +23,7 @@ const DEFAULT_LAYERS = {
   'heat-waste':      false,
   'heat-steel':      false,
   'heat-abw':        false,
+  'heat-fw':         false,
   // Fernwärme-Märkte
   'fw-cities-hi':    true,
   'fw-cities-mid':   true,
