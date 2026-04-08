@@ -64,7 +64,9 @@ async function callClaude(query, apiKey) {
   if (!res.ok) throw new Error(`API ${res.status}`)
   const data = await res.json()
   const text = data.content?.[0]?.text || ''
-  return JSON.parse(text)
+  // Strip markdown code fences if present
+  const clean = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+  return JSON.parse(clean)
 }
 
 function ResultCard({ result, onReset }) {

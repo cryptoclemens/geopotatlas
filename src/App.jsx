@@ -16,6 +16,8 @@ import LoginScreen from './components/auth/LoginScreen'
 import ApiKeySettings from './components/auth/ApiKeySettings'
 import { useUIStore } from './store/useUIStore'
 import { useAuthStore } from './store/useAuthStore'
+import { useLangStore } from './store/useLangStore'
+import { t } from './lib/i18n'
 import { FW_CITIES } from './data/fwCities'
 
 // Injected at build time via vite.config.js → define: { __APP_VERSION__ }
@@ -58,18 +60,19 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false)
 
   const { user, loading, init, profile } = useAuthStore()
+  const lang       = useLangStore(s => s.lang)
+  const toggleLang = useLangStore(s => s.toggleLang)
+  const hasApiKey  = Boolean(profile?.claude_api_key)
   const [showApiKeyPrompt, setShowApiKeyPrompt] = useState(false)
 
   useEffect(() => { init() }, []) // eslint-disable-line
 
-  // Show API key prompt once after first login if no key is set
+  // Show API key prompt once after login if no key is set
   useEffect(() => {
     if (!user || loading) return
     const dismissed = localStorage.getItem('gpa_api_key_dismissed')
-    if (!profile?.claude_api_key && !dismissed) {
-      setShowApiKeyPrompt(true)
-    }
-  }, [user, profile, loading])
+    if (!hasApiKey && !dismissed) setShowApiKeyPrompt(true)
+  }, [user, hasApiKey, loading])
 
   if (loading) return (
     <div style={{ position:'fixed', inset:0, background:'#09152a',
@@ -102,10 +105,19 @@ export default function App() {
         {/* View tabs */}
         <div className="hdr-tabs">
           <button className={`hdr-tab${view==='map' ? ' active' : ''}`} onClick={() => setView('map')}>
-            🗺 Karte
+            {t('tab.map', lang)}
           </button>
-          <button className={`hdr-tab${view==='pro' ? ' active' : ''}`} onClick={() => setView('pro')}>
-            ✦ Pro
+          <button
+            className={`hdr-tab${view==='pro' ? ' active' : ''}`}
+            onClick={() => {
+              if (!hasApiKey) { setShowApiKeyPrompt(true) }
+              else setView('pro')
+            }}
+            title={!hasApiKey ? t('pro.hint', lang) : ''}
+            style={{ opacity: hasApiKey ? 1 : 0.45, position: 'relative' }}
+          >
+            {t('tab.pro', lang)}
+            {!hasApiKey && <span style={{ fontSize: 8, marginLeft: 3, verticalAlign: 'super' }}>🔒</span>}
           </button>
         </div>
 
@@ -117,6 +129,15 @@ export default function App() {
           <StatTile statKey="abw" label="Abwärme (BfEE)"  title="BfEE-Abwärmestandorte im Ausschnitt" />
           <StatTile statKey="fw"  label="FW-Städte >20%"  title="Fernwärme-Städte >20% im Ausschnitt" />
           <button className="print-btn-hdr" title="Drucken / Exportieren" onClick={showPrintDialog}>🖨</button>
+          <button
+            onClick={toggleLang}
+            title="Sprache wechseln / Switch language"
+            style={{
+              background: 'rgba(255,255,255,.06)', border: '1px solid var(--border)',
+              borderRadius: 5, color: 'var(--muted)', fontSize: 10, padding: '3px 7px',
+              cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600,
+            }}
+          >{t('lang.toggle', lang)}</button>
           <button
             className="print-btn-hdr"
             title={`Eingeloggt als ${user.email}`}
