@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGB – Geopotatlas</title>
+  <style>
+    :root {
+      --bg: #09152a;
+      --surface: #0f1d35;
+      --border: rgba(91,175,214,.18);
+      --text: rgba(255,255,255,.85);
+      --muted: rgba(255,255,255,.45);
+      --accent: #22d3ee;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+    header {
+      background: rgba(9,21,42,.95);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    nav a {
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      transition: color .15s;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+    main {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .stand {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin: 28px 0 8px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+    h2:first-of-type { border-top: none; margin-top: 0; }
+    p { margin-bottom: 10px; color: var(--text); }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 4px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .warn {
+      background: rgba(245,158,11,.08);
+      border: 1px solid rgba(245,158,11,.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 13px;
+      color: #fcd34d;
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/geopotatlas/" class="brand">Geopotatlas</a>
+  <nav>
+    <a href="impressum.html">Impressum</a>
+    <a href="agb.html" class="active">AGB</a>
+    <a href="datenschutz.html">Datenschutz & -Sicherheit</a>
+    <a href="/geopotatlas/">← Zur App</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Allgemeine Geschäftsbedingungen</h1>
+  <div class="stand">Stand: April 2026 · vencly GmbH, Leopoldstraße 31, 80802 München</div>
+
+  <h2>§ 1 Geltungsbereich</h2>
+  <p>Diese Allgemeinen Geschäftsbedingungen (AGB) der vencly GmbH, Leopoldstraße 31, 80802 München (nachfolgend „Anbieter"), gelten für alle Verträge über die Nutzung der SaaS-Plattform Geopotatlas. Abweichende Bedingungen des Nutzers finden keine Anwendung. Vertragssprache ist Deutsch.</p>
+  <p>Der Dienst richtet sich an gewerbliche Nutzer (B2B) sowie an Fachkräfte und Selbstständige aus den Bereichen Geologie, Hydrologie, Energiewirtschaft und verwandten Disziplinen. Die Nutzung durch Verbraucher im Sinne von § 13 BGB ist grundsätzlich ausgeschlossen; auf begründeten Antrag kann der Anbieter im Einzelfall Ausnahmen gewähren.</p>
+
+  <h2>§ 2 Vertragsschluss</h2>
+  <p>Das Angebot auf der Website stellt keine verbindliche Offerte dar. Der Vertrag kommt durch Registrierung des Nutzers (Antrag) und Aktivierung des Accounts durch den Anbieter (Annahme) zustande. Bei der Registrierung bestätigt der Nutzer, diese AGB und die Datenschutzerklärung gelesen und akzeptiert zu haben.</p>
+
+  <h2>§ 3 Leistungsbeschreibung</h2>
+  <p>3.1 Geopotatlas ist eine webbasierte SaaS-Plattform zur Visualisierung und KI-gestützten Analyse geothermischer Potenziale, Aquifer-Daten und Fernwärmenetze in Deutschland.</p>
+  <p>3.2 Der Anbieter stellt folgende Kerndienste bereit:</p>
+  <ul>
+    <li>Interaktive Kartenansicht mit WMS-Diensten öffentlicher Anbieter (BGR, LANUK NRW, Zensus 2022)</li>
+    <li>Visualisierung öffentlicher Geodatensätze (AixDHN Fernwärmenetze, BfEE Abwärme, OpenStreetMap)</li>
+    <li>Freitextbasierte KI-Analyse über das BYOK-Modell (Geopotatlas Pro)</li>
+    <li>Druckfunktion / Kartenexport</li>
+    <li>Feedback-Funktion</li>
+  </ul>
+  <p>3.3 Der Anbieter stellt die Plattform mit einem Verfügbarkeitsziel von 99 % p.a. bereit (geplante Wartungsfenster ausgenommen). Ein Rechtsanspruch auf eine bestimmte Verfügbarkeit besteht nicht.</p>
+  <p>3.4 Beim BYOK-Modell (Bring Your Own Key) verarbeitet der Anbieter KI-Anfragen nicht auf eigener Infrastruktur. Die Verarbeitung erfolgt direkt beim vom Nutzer gewählten KI-Anbieter (Anthropic, Microsoft o.ä.). Die im Pro-Modus angezeigten KI-Ergebnisse sind automatisch generiert und dienen ausschließlich der Erstorientierung.</p>
+  <p>3.5 Für die Verfügbarkeit und Aktualität externer Datenquellen (WMS-Dienste, OpenStreetMap Overpass API, öffentliche Geodatensätze) übernimmt der Anbieter keine Verantwortung. Diese Dienste werden von Dritten betrieben und können ohne Vorankündigung ausfallen oder sich ändern.</p>
+  <p>3.6 Der Anbieter behält sich vor, den Funktionsumfang mit einer Ankündigungsfrist von mindestens 30 Tagen zu ändern, sofern dies dem Nutzer zumutbar ist.</p>
+
+  <h2>§ 4 Preise &amp; Zahlungsbedingungen</h2>
+  <p>4.1 Der Free-Tarif ist kostenlos und umfasst die Kartenansicht, Layer-Auswahl und Standortsuche.</p>
+  <p>4.2 Geopotatlas Pro (KI-gestützte Analyse) ist im BYOK-Modell nutzbar. Der Nutzer trägt die Kosten seiner eigenen API-Keys beim jeweiligen KI-Anbieter selbst. Der Anbieter erhebt hierfür keine gesonderte Gebühr, solange kein kostenpflichtiger Pro-Tarif eingeführt wurde.</p>
+  <p>4.3 Sollte der Anbieter künftig kostenpflichtige Tarife einführen, werden Bestandsnutzer mindestens 30 Tage im Voraus per E-Mail informiert.</p>
+
+  <h2>§ 5 Laufzeit &amp; Kündigung</h2>
+  <p>5.1 Der Free-Tarif läuft auf unbestimmte Zeit und kann jederzeit durch Löschanfrage an <a href="mailto:hello@vencly.com">hello@vencly.com</a> beendet werden.</p>
+  <p>5.2 Nach Vertragsende werden Profil- und Account-Daten 30 Tage in einem nicht-zugänglichen Archiv vorgehalten und anschließend unwiderruflich gelöscht. Der Nutzer kann die sofortige Datenlöschung jederzeit schriftlich beantragen.</p>
+  <p>5.3 Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt.</p>
+
+  <h2>§ 6 BYOK – Verantwortlichkeit für KI-Drittanbieter</h2>
+  <p>6.1 Nutzt der Nutzer das BYOK-Modell, ist er allein verantwortlich für die Wahl des KI-Anbieters sowie die datenschutzrechtliche Zulässigkeit des Einsatzes.</p>
+  <p>6.2 Der Anbieter übermittelt Anfrageinhalte bei BYOK direkt an den gewählten Drittanbieter und speichert diese Inhalte nicht dauerhaft auf eigenen Servern.</p>
+  <p>6.3 Der Anbieter haftet nicht für Datenschutzverstöße, Datenverluste oder sonstige Schäden, die beim Drittanbieter entstehen, soweit den Anbieter kein eigenes Verschulden trifft.</p>
+
+  <h2>§ 7 Kein Ersatz für fachliche Beratung</h2>
+  <div class="warn">
+    ⚠ Die von Geopotatlas angezeigten Daten und KI-Analysen dienen ausschließlich der Erstorientierung und ersetzen keine geologische, hydrologische oder energiewirtschaftliche Fachberatung.
+  </div>
+  <p>7.2 Bohrentscheidungen, Investitionspläne oder behördliche Antragsverfahren dürfen nicht allein auf Basis der in Geopotatlas dargestellten Informationen getroffen werden. Der Anbieter übernimmt keine Haftung für Schäden, die aus der Verwendung der Plattform für derartige Zwecke entstehen.</p>
+  <p>7.3 Alle angezeigten Geodaten stammen aus öffentlichen Quellen (BGR, LANUK NRW, RWTH Aachen AixDHN, OpenStreetMap, BfEE, Zensus 2022). Der Anbieter übernimmt keine Gewähr für deren Richtigkeit, Vollständigkeit oder Aktualität.</p>
+
+  <h2>§ 8 Nutzerpflichten</h2>
+  <p>Der Nutzer verpflichtet sich:</p>
+  <ul>
+    <li>Den Dienst ausschließlich für rechtmäßige Zwecke zu nutzen</li>
+    <li>Die dargestellten Daten nicht als alleinige Entscheidungsgrundlage für sicherheitskritische Vorhaben zu verwenden</li>
+    <li>Keine automatisierten Massenanfragen (Scraping, Crawling) durchzuführen</li>
+    <li>Zugangsdaten vertraulich zu behandeln und unbefugten Dritten keinen Zugang zu gewähren</li>
+    <li>Sicherheitsvorfälle unverzüglich an <a href="mailto:hello@vencly.com">hello@vencly.com</a> zu melden</li>
+  </ul>
+
+  <h2>§ 9 Haftungsbeschränkung</h2>
+  <p>9.1 Bei einfacher Fahrlässigkeit haftet der Anbieter nur für die Verletzung wesentlicher Vertragspflichten (Kardinalpflichten), begrenzt auf den vorhersehbaren, vertragstypischen Schaden.</p>
+  <p>9.2 Die Haftungsbeschränkung gilt nicht bei Vorsatz, grober Fahrlässigkeit, Körper-/Gesundheitsschäden oder Ansprüchen nach dem Produkthaftungsgesetz.</p>
+  <p>9.3 Für Schäden, die aus der Ungenauigkeit externer Geodaten, dem Ausfall externer WMS-Dienste oder fehlerhaften KI-Ausgaben entstehen, haftet der Anbieter nicht, soweit ihn kein eigenes Verschulden trifft.</p>
+
+  <h2>§ 10 Datenschutz</h2>
+  <p>Die Verarbeitung personenbezogener Daten erfolgt gemäß der <a href="datenschutz.html">Datenschutzerklärung</a>. Auf Anfrage wird ein Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO zur Verfügung gestellt (<a href="mailto:datenschutz@vencly.com">datenschutz@vencly.com</a>).</p>
+
+  <h2>§ 11 Geistiges Eigentum &amp; Lizenzen</h2>
+  <p>11.1 Alle Rechte an der Geopotatlas-Plattform, deren Code, Logos und eigenen Inhalten verbleiben beim Anbieter.</p>
+  <p>11.2 Die in Geopotatlas visualisierten Geodaten unterliegen den Lizenzbedingungen der jeweiligen Quellen:</p>
+  <ul>
+    <li>OpenStreetMap: ODbL (<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a>)</li>
+    <li>BGR-Geodaten: Datenlizenz Deutschland – Namensnennung – Version 2.0</li>
+    <li>LANUK NRW: Datenlizenz Deutschland – Namensnennung – Version 2.0</li>
+    <li>AixDHN (RWTH Aachen): Akademische Nutzungslizenz</li>
+  </ul>
+
+  <h2>§ 12 Änderungen der AGB</h2>
+  <p>Änderungen werden dem Nutzer per E-Mail mindestens 4 Wochen vor Inkrafttreten angekündigt. Widerspricht der Nutzer nicht innerhalb dieser Frist, gelten die neuen AGB als akzeptiert.</p>
+
+  <h2>§ 13 Schlussbestimmungen</h2>
+  <p>13.1 Gerichtsstand für Kaufleute und juristische Personen des öffentlichen Rechts ist München.</p>
+  <p>13.2 Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts (CISG).</p>
+  <p>13.3 Sollten einzelne Bestimmungen unwirksam sein, bleibt der Vertrag im Übrigen wirksam (Salvatorische Klausel).</p>
+</main>
+
+<footer>
+  © 2026 vencly GmbH · <a href="impressum.html">Impressum</a> · <a href="agb.html">AGB</a> · <a href="datenschutz.html">Datenschutz</a>
+</footer>
+
+</body>
+</html>

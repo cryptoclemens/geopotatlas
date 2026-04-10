@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz &amp; Datensicherheit – Geopotatlas</title>
+  <style>
+    :root {
+      --bg: #09152a;
+      --surface: #0f1d35;
+      --border: rgba(91,175,214,.18);
+      --text: rgba(255,255,255,.85);
+      --muted: rgba(255,255,255,.45);
+      --accent: #22d3ee;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+    header {
+      background: rgba(9,21,42,.95);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; }
+    nav a {
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      transition: color .15s;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+    main {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .stand {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin: 28px 0 8px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    h2 .num {
+      display: inline-block;
+      background: rgba(14,165,233,.12);
+      border: 1px solid rgba(14,165,233,.2);
+      border-radius: 4px;
+      padding: 0 6px;
+      font-size: 11px;
+      color: var(--accent);
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.7);
+      margin: 14px 0 6px;
+    }
+    p { margin-bottom: 10px; color: var(--text); }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 5px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 12px 0 18px;
+    }
+    .box strong { color: #fff; display: block; margin-bottom: 4px; }
+    .box small { color: var(--muted); font-size: 12px; }
+    .security-list {
+      list-style: none;
+      padding: 0;
+    }
+    .security-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(91,175,214,.06);
+    }
+    .security-list li:last-child { border-bottom: none; }
+    .security-list li::before {
+      content: '✓';
+      color: #5bd68a;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .rights-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .right-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+    .right-item strong { color: var(--accent); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 2px; }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/geopotatlas/" class="brand">Geopotatlas</a>
+  <nav>
+    <a href="impressum.html">Impressum</a>
+    <a href="agb.html">AGB</a>
+    <a href="datenschutz.html" class="active">Datenschutz &amp; -Sicherheit</a>
+    <a href="/geopotatlas/">← Zur App</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Datenschutz &amp; Datensicherheit</h1>
+  <div class="stand">Stand: April 2026 · Gemäß Art. 13/14 DSGVO, TTDSG und deutschem Datenschutzrecht</div>
+
+  <h2><span class="num">1</span> Verantwortlicher</h2>
+  <p>
+    <strong>vencly GmbH</strong><br>
+    Leopoldstraße 31, 80802 München<br>
+    E-Mail: <a href="mailto:datenschutz@vencly.com">datenschutz@vencly.com</a><br>
+    Geschäftsführer: Clemens Eugen Theodor Pompeÿ · HRB 290524, Amtsgericht München
+  </p>
+
+  <h2><span class="num">2</span> Verarbeitete Datenkategorien &amp; Zwecke</h2>
+
+  <h3>a) Account-Daten (Anzeigename, E-Mail, Passwort-Hash)</h3>
+  <p>Zweck: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)<br>
+  Speicherdauer: bis zur Kontolöschung + 30 Tage Kulanzfrist</p>
+
+  <h3>b) KI-Anfragen im Pro-Modus (Geopotatlas Pro)</h3>
+  <p>Zweck: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)<br>
+  Hinweis: Bei Nutzung des BYOK-Modells werden Anfrageinhalte direkt an den vom Nutzer gewählten KI-Anbieter übermittelt. Geopotatlas speichert diese Inhalte nicht dauerhaft auf eigenen Servern.</p>
+
+  <h3>c) Nutzungs- und Logdaten (IP-Adresse, Zugriffszeiten, Browser)</h3>
+  <p>Zweck: Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO) – IT-Sicherheit, Missbrauchsprävention<br>
+  Speicherdauer: maximal 30 Tage rollierend</p>
+
+  <h3>d) KI-API-Keys (verschlüsselt)</h3>
+  <p>Zweck: Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)<br>
+  Speicherung: verschlüsselt in der Nutzerdatenbank; nur der jeweilige Nutzer hat Zugang.</p>
+
+  <h3>e) Feedback-Nachrichten</h3>
+  <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung durch Absenden)<br>
+  Speicherdauer: anonymisiert nach 12 Monaten.</p>
+
+  <h3>f) Geodatenabfragen an externe Dienste</h3>
+  <p>Beim Laden von Kartenlayern werden technisch bedingt IP-Adresse und Kartenbegrenzung an externe Dienste übermittelt (z.B. WMS-Server, Overpass API). Geopotatlas hat auf diese Verarbeitungen keinen Einfluss; es gelten die Datenschutzrichtlinien der jeweiligen Anbieter.</p>
+
+  <h2><span class="num">3</span> Externe Datenquellen</h2>
+  <p>Beim Laden von Kartenlayern wird die IP-Adresse technisch an folgende Dienste übertragen:</p>
+  <ul>
+    <li>OpenStreetMap / Overpass API (Heizwerke, POIs): <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">openstreetmap.org/copyright</a></li>
+    <li>Bundesanstalt für Geowissenschaften und Rohstoffe (BGR): bgr.bund.de</li>
+    <li>LANUK NRW (Geothermiepotenzial): lanuknrw.de</li>
+    <li>Statistisches Bundesamt / Zensus 2022: zensus2022.de</li>
+    <li>Leaflet / OpenStreetMap-Kartenkacheln: openstreetmap.org/copyright</li>
+  </ul>
+  <p>Diese Dienste sind für den Betrieb von Geopotatlas technisch notwendig (Art. 6 Abs. 1 lit. b und f DSGVO).</p>
+
+  <h2><span class="num">4</span> BYOK – KI-Drittanbieter</h2>
+  <p>Bei Nutzung des BYOK-Modells im Pro-Modus werden Anfrageinhalte direkt an den vom Nutzer gewählten Anbieter übermittelt. Geopotatlas ist in diesem Verhältnis kein Verantwortlicher für die Verarbeitung durch den KI-Anbieter. Es gelten die jeweiligen Datenschutzrichtlinien:</p>
+  <ul>
+    <li>Anthropic: <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a> (USA, Standardvertragsklauseln)</li>
+    <li>Microsoft Copilot: <a href="https://privacy.microsoft.com" target="_blank" rel="noopener">privacy.microsoft.com</a> (USA/EU, Standardvertragsklauseln)</li>
+    <li>Perplexity AI: <a href="https://www.perplexity.ai/privacy" target="_blank" rel="noopener">perplexity.ai/privacy</a> (USA, Standardvertragsklauseln)</li>
+  </ul>
+  <p>Die Datenübermittlung in die USA erfolgt auf Grundlage von Art. 46 Abs. 2 lit. c DSGVO (Standardvertragsklauseln).</p>
+
+  <h2><span class="num">5</span> Auftragsverarbeiter</h2>
+  <div class="box">
+    <strong>Supabase Inc.</strong>
+    Zweck: Nutzerdatenbank, Authentifizierung<br>
+    Serverstandort: EU (Frankfurt am Main, Deutschland)<br>
+    <small><a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></small>
+  </div>
+  <div class="box">
+    <strong>GitHub Inc. (Microsoft)</strong>
+    Zweck: Quellcode-Hosting, automatisierter Build- und Deployment-Prozess (GitHub Actions, GitHub Pages)<br>
+    Serverstandort: USA (Standardvertragsklauseln nach Art. 46 Abs. 2 lit. c DSGVO)<br>
+    <small><a href="https://docs.github.com/de/site-policy/privacy-policies" target="_blank" rel="noopener">docs.github.com/de/site-policy/privacy-policies</a></small>
+  </div>
+
+  <h2><span class="num">6</span> Speicherdauer</h2>
+  <ul>
+    <li>Account-Daten: bis zur Kontolöschung + 30 Tage Kulanzfrist</li>
+    <li>Verschlüsselte API-Keys: bis zur manuellen Löschung durch den Nutzer</li>
+    <li>Logdaten: maximal 30 Tage rollierend</li>
+    <li>Feedback-Nachrichten: anonymisiert nach 12 Monaten</li>
+    <li>Steuerrelevante Daten: 10 Jahre (§ 147 AO)</li>
+  </ul>
+
+  <h2><span class="num">7</span> Betroffenenrechte (Art. 15–22 DSGVO)</h2>
+  <div class="rights-list">
+    <div class="right-item"><strong>Auskunft · Art. 15</strong>Welche Daten wir über Sie gespeichert haben</div>
+    <div class="right-item"><strong>Berichtigung · Art. 16</strong>Korrektur unrichtiger Daten</div>
+    <div class="right-item"><strong>Löschung · Art. 17</strong>„Recht auf Vergessenwerden"</div>
+    <div class="right-item"><strong>Einschränkung · Art. 18</strong>Verarbeitung einschränken</div>
+    <div class="right-item"><strong>Übertragbarkeit · Art. 20</strong>Daten im strukturierten Format erhalten</div>
+    <div class="right-item"><strong>Widerspruch · Art. 21</strong>Gegen berechtigte Interessen</div>
+  </div>
+  <p>Zur Ausübung dieser Rechte: <a href="mailto:datenschutz@vencly.com">datenschutz@vencly.com</a></p>
+
+  <h2><span class="num">8</span> Beschwerderecht</h2>
+  <p>
+    Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
+    Promenade 18, 91522 Ansbach<br>
+    <a href="https://www.lda.bayern.de" target="_blank" rel="noopener">www.lda.bayern.de</a>
+  </p>
+
+  <h2><span class="num">9</span> Cookies &amp; Tracking</h2>
+  <p>Geopotatlas verwendet ausschließlich funktional notwendige Cookies für die Sitzungsverwaltung (Supabase Auth Session-Token). Es werden keine Analyse-, Werbe- oder Tracking-Cookies eingesetzt. Technisch notwendige Session-Cookies werden ohne gesonderte Einwilligung gesetzt (§ 25 Abs. 2 Nr. 2 TTDSG). Eine Cookie-Einwilligung ist daher nicht erforderlich.</p>
+  <p>Die Spracheinstellung (DE/EN) wird im localStorage des Browsers gespeichert – kein Cookie, keine Serverübertragung.</p>
+
+  <h2><span class="num">10</span> Datensicherheit (Art. 32 DSGVO)</h2>
+  <ul class="security-list">
+    <li>TLS-Verschlüsselung für alle Datenübertragungen</li>
+    <li>Verschlüsselte Speicherung von API-Keys in der Nutzerdatenbank</li>
+    <li>PostgreSQL Row-Level Security (RLS) für Mandantentrennung</li>
+    <li>Security Headers (X-Frame-Options DENY, X-Content-Type-Options nosniff)</li>
+    <li>Passwörter werden ausschließlich als Hash gespeichert (Supabase Auth)</li>
+  </ul>
+
+  <h2><span class="num">11</span> Keine Profilerstellung / kein Tracking</h2>
+  <p>Geopotatlas erstellt keine Nutzerprofile, betreibt kein Behavioural Targeting und gibt keine personenbezogenen Daten zu Werbezwecken an Dritte weiter.</p>
+
+  <h2><span class="num">12</span> Hinweis zur Haftung für Geodaten</h2>
+  <p>Die in Geopotatlas angezeigten Geodaten (Aquifere, Fernwärmenetze, Wärmequellen) stammen aus öffentlichen Quellen und werden ohne Gewähr auf Richtigkeit oder Vollständigkeit dargestellt. Sie ersetzen keine fachliche Beratung oder geologische Gutachten.</p>
+
+  <h2><span class="num">13</span> Änderungen dieser Erklärung</h2>
+  <p>Bei wesentlichen Änderungen werden Nutzer per E-Mail informiert. Das Datum „Stand:" am Anfang dieses Dokuments wird bei jeder Aktualisierung angepasst.</p>
+</main>
+
+<footer>
+  © 2026 vencly GmbH · <a href="impressum.html">Impressum</a> · <a href="agb.html">AGB</a> · <a href="datenschutz.html">Datenschutz</a>
+</footer>
+
+</body>
+</html>
