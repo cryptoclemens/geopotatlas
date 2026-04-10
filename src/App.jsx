@@ -14,6 +14,7 @@ import WelcomeOverlay from './components/ui/WelcomeOverlay'
 import GuidedTour from './components/ui/GuidedTour'
 import LoginScreen from './components/auth/LoginScreen'
 import ApiKeySettings from './components/auth/ApiKeySettings'
+import LandingPage from './components/LandingPage'
 import { useUIStore } from './store/useUIStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useLangStore } from './store/useLangStore'
@@ -58,6 +59,7 @@ export default function App() {
   const showPrintDialog = useUIStore(s => s.showPrintDialog)
   const [view, setView]           = useState('map')
   const [showSettings, setShowSettings] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
 
   const { user, loading, init, profile } = useAuthStore()
   const lang       = useLangStore(s => s.lang)
@@ -82,7 +84,15 @@ export default function App() {
     </div>
   )
 
-  if (!user) return <LoginScreen />
+  if (!user) return (
+    <>
+      <LandingPage
+        onLogin={() => setShowLogin('login')}
+        onSignup={() => setShowLogin('signup')}
+      />
+      {showLogin && <LoginScreen initialMode={showLogin} onClose={() => setShowLogin(false)} />}
+    </>
+  )
 
   return (
     <>

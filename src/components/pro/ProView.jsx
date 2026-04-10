@@ -56,7 +56,7 @@ async function callClaude(query, apiKey) {
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
+      max_tokens: 2048,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: query }],
     }),
@@ -64,9 +64,10 @@ async function callClaude(query, apiKey) {
   if (!res.ok) throw new Error(`API ${res.status}`)
   const data = await res.json()
   const text = data.content?.[0]?.text || ''
-  // Strip markdown code fences if present
-  const clean = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
-  return JSON.parse(clean)
+  // Robustly extract JSON object from response (handles fences + extra text)
+  const match = text.match(/\{[\s\S]*\}/)
+  if (!match) throw new Error('Keine JSON-Antwort erhalten')
+  return JSON.parse(match[0])
 }
 
 function ResultCard({ result, onReset }) {
