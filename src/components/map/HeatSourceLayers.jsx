@@ -53,6 +53,18 @@ const HEAT_CONFIGS = [
       return !!(t.name || t.operator || t.product)
     },
   },
+  {
+    key: 'heat-fw',
+    color: '#f97316',
+    icon: '🔥',
+    label: 'Fernwärme-Heizwerk (OSM)',
+    query: (bbox) => `[out:json][timeout:20][bbox:${bbox}];(nwr["man_made"="heating_station"];nwr["building"="heating_station"];nwr["power"="plant"]["plant:source"="district_heating"];nwr["plant:output:heat"]["plant:source"~"geothermal|gas|coal|waste|biomass"];nwr["utility"="district_heating"]["name"];);out center tags;`,
+    filter: (el) => {
+      const t = el.tags || {}
+      // Must have a name or operator to be useful
+      return !!(t.name || t.operator)
+    },
+  },
 ]
 
 function getCenter(el) {

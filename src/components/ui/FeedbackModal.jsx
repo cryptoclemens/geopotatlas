@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 // ── Supabase (Kanal 1) ────────────────────────────────────────────────────────
-const SUPABASE_URL = 'https://uqpdnylqlnnifwmziyer.supabase.co'
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcGRueWxxbG5uaWZ3bXppeWVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MzgwOTgsImV4cCI6MjA4ODMxNDA5OH0.ttsDjRn8OPEZC_F3Hew_3rv-aCTjvRJpeTdtmTIfUKI'
+const SUPABASE_URL = 'https://bcqqdlkttuxmkymrssgz.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjcXFkbGt0dHV4bWt5bXJzc2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1OTMzNTksImV4cCI6MjA5MTE2OTM1OX0.4T_SQUTGrKltfPckWSAWjELoXr4qyWm37d3r7U2Eop0'
 
 // ── GitHub feedback.md (Kanal 2) ──────────────────────────────────────────────
 // Token wird zur Build-Zeit via GitHub Actions Secret VITE_GH_FEEDBACK_TOKEN
@@ -125,7 +125,7 @@ export default function FeedbackModal() {
     setStatus('sending')
 
     const payload = {
-      page: '/geopotatlas/',
+      page: 'gpa.vencly.com',
       stars: rating,
       categories: cats,
       message,

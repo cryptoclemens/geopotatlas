@@ -6,6 +6,7 @@ import WMSLayers from './WMSLayers'
 import HeatSourceLayers from './HeatSourceLayers'
 import FWCitiesLayer from './FWCitiesLayer'
 import KwpLayers from './KwpLayers'
+import AixDhnLayer from './AixDhnLayer'
 import ViewportCounter from './ViewportCounter'
 
 // Exposes map instance globally for flyTo from Ortssuche
@@ -37,6 +38,7 @@ export default function MapView() {
       <HeatSourceLayers />
       <FWCitiesLayer />
       <KwpLayers />
+      <AixDhnLayer />
       <ViewportCounter />
     </MapContainer>
   )

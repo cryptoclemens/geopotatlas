@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geopotatlas Pro — Konzept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg:       #0a1628;
+      --surface:  #0f1d35;
+      --surface2: #162240;
+      --border:   rgba(91,175,214,0.15);
+      --accent:   #0ea5e9;
+      --accent2:  #22d3ee;
+      --green:    #22c55e;
+      --amber:    #f59e0b;
+      --red:      #ef4444;
+      --text:     #e2eaf5;
+      --muted:    #7a9ab5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+    /* ── Topbar ── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700;
+      color: var(--accent2); letter-spacing: -.3px; }
+    .logo span { color: var(--muted); font-weight: 400; }
+    .badge-pro { background: linear-gradient(135deg,#0ea5e9,#6366f1);
+      color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px;
+      border-radius: 4px; letter-spacing: .5px; margin-left: 8px; vertical-align: middle; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--muted); font-size: 13px; text-decoration: none;
+      transition: color .15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent); color: #fff; border: none;
+      padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: opacity .15s; font-family: 'Poppins', sans-serif; }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 64px 28px 48px;
+      max-width: 900px; margin: 0 auto; text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(14,165,233,.12); border: 1px solid rgba(14,165,233,.25);
+      color: var(--accent); font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px; letter-spacing: .5px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 38px; font-weight: 700; line-height: 1.2;
+      color: #fff; margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--accent2); }
+    .hero p {
+      color: var(--muted); font-size: 16px; max-width: 620px;
+      margin: 0 auto 36px; line-height: 1.7;
+    }
+
+    /* ── Search box ── */
+    .search-wrap {
+      background: var(--surface2);
+      border: 1.5px solid rgba(14,165,233,.3);
+      border-radius: 14px; padding: 16px 20px;
+      box-shadow: 0 0 40px rgba(14,165,233,.08);
+      max-width: 780px; margin: 0 auto 16px;
+      transition: border-color .2s;
+    }
+    .search-wrap:focus-within { border-color: var(--accent); }
+    .search-inner { display: flex; align-items: flex-start; gap: 12px; }
+    .search-icon { color: var(--accent); font-size: 18px; margin-top: 3px; flex-shrink: 0; }
+    .search-input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--text); font-size: 15px; font-family: 'Open Sans', sans-serif;
+      line-height: 1.5; resize: none; min-height: 52px;
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-btn {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 10px 20px; font-size: 13px; font-weight: 600;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      font-family: 'Poppins', sans-serif; transition: opacity .15s;
+      align-self: flex-end;
+    }
+    .search-btn:hover { opacity: .9; }
+
+    /* ── Query chips ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 48px; }
+    .chip {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); font-size: 11px; padding: 5px 12px;
+      border-radius: 20px; cursor: pointer; transition: all .15s;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(14,165,233,.06); }
+
+    /* ── Section ── */
+    .section { max-width: 1100px; margin: 0 auto 56px; padding: 0 28px; }
+    .section-title {
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+    }
+
+    /* ── Audience cards ── */
+    .audience-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media (max-width: 800px) { .audience-grid { grid-template-columns: 1fr; } }
+    .audience-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px; cursor: pointer;
+      transition: border-color .2s, transform .15s;
+      position: relative; overflow: hidden;
+    }
+    .audience-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .audience-card.geo::before  { background: linear-gradient(90deg,#22d3ee,#0ea5e9); }
+    .audience-card.biz::before  { background: linear-gradient(90deg,#22c55e,#16a34a); }
+    .audience-card.plan::before { background: linear-gradient(90deg,#f59e0b,#d97706); }
+    .audience-card:hover { border-color: rgba(14,165,233,.4); transform: translateY(-2px); }
+    .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600;
+      color: #fff; margin-bottom: 8px; }
+    .card-desc { color: var(--muted); font-size: 12px; line-height: 1.6; margin-bottom: 16px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500;
+    }
+    .tag-blue  { background: rgba(14,165,233,.15); color: #7dd3fc; }
+    .tag-green { background: rgba(34,197,94,.12);  color: #86efac; }
+    .tag-amber { background: rgba(245,158,11,.12); color: #fcd34d; }
+
+    /* ── Result mockup ── */
+    .result-layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+    @media (max-width: 900px) { .result-layout { grid-template-columns: 1fr; } }
+
+    .result-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .result-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .result-header h3 { font-size: 13px; font-weight: 600; color: #fff; }
+    .result-count {
+      background: rgba(14,165,233,.15); color: var(--accent);
+      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+    }
+    .result-item {
+      padding: 14px 20px; border-bottom: 1px solid rgba(91,175,214,.07);
+      display: flex; align-items: flex-start; gap: 12px;
+      cursor: pointer; transition: background .1s;
+    }
+    .result-item:hover { background: rgba(14,165,233,.04); }
+    .result-item:last-child { border-bottom: none; }
+    .result-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+    }
+    .result-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+    .result-meta { font-size: 11px; color: var(--muted); }
+    .result-badge {
+      margin-left: auto; font-size: 10px; padding: 2px 7px; border-radius: 4px;
+      font-weight: 600; flex-shrink: 0;
+    }
+    .badge-high   { background: rgba(34,197,94,.15);  color: #86efac; }
+    .badge-medium { background: rgba(245,158,11,.15); color: #fcd34d; }
+    .badge-new    { background: rgba(14,165,233,.15); color: #7dd3fc; }
+
+    /* ── Map mockup ── */
+    .map-mock {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; position: relative; min-height: 480px;
+    }
+    .map-bg {
+      width: 100%; height: 100%; min-height: 480px;
+      background:
+        radial-gradient(ellipse at 40% 60%, rgba(34,197,94,.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 30%, rgba(14,165,233,.08) 0%, transparent 40%),
+        linear-gradient(180deg, #0d1a30 0%, #0a1628 100%);
+      position: relative;
+    }
+    /* Simulated map dots */
+    .map-dot {
+      position: absolute; border-radius: 50%; cursor: pointer;
+      transition: transform .2s;
+    }
+    .map-dot:hover { transform: scale(1.4); z-index: 10; }
+    .map-dot-label {
+      position: absolute; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 4px 8px; font-size: 10px; color: var(--text);
+      white-space: nowrap; pointer-events: none;
+      transform: translateX(-50%); bottom: calc(100% + 6px); left: 50%;
+      opacity: 0; transition: opacity .15s;
+    }
+    .map-dot:hover .map-dot-label { opacity: 1; }
+
+    /* SVG network lines */
+    .map-lines { position: absolute; inset: 0; pointer-events: none; }
+
+    .map-overlay {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(10,22,40,.85); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px;
+    }
+    .map-overlay-title { font-size: 11px; font-weight: 600; color: var(--accent2); margin-bottom: 8px; }
+    .map-legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 11px; color: var(--muted); }
+    .map-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    .map-search-bar {
+      position: absolute; top: 12px; right: 12px; left: 180px;
+      background: rgba(10,22,40,.9); backdrop-filter: blur(8px);
+      border: 1px solid rgba(14,165,233,.3); border-radius: 8px;
+      padding: 8px 14px; display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* ── Metrics row ── */
+    .metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 20px; }
+    @media (max-width: 700px) { .metrics { grid-template-columns: repeat(2,1fr); } }
+    .metric-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 20px;
+    }
+    .metric-val { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700;
+      color: #fff; margin-bottom: 2px; }
+    .metric-label { font-size: 11px; color: var(--muted); }
+    .metric-trend { font-size: 11px; margin-top: 4px; }
+    .trend-up   { color: var(--green); }
+    .trend-down { color: var(--red); }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border); padding: 20px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 11px; max-width: 1100px; margin: 0 auto;
+    }
+
+    /* ── Demo banner ── */
+    .demo-banner {
+      background: linear-gradient(90deg, rgba(99,102,241,.2), rgba(14,165,233,.15));
+      border: 1px solid rgba(99,102,241,.3);
+      text-align: center; padding: 10px;
+      font-size: 12px; color: #c4b5fd;
+    }
+    .demo-banner a { color: #a5b4fc; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- Demo banner -->
+<div class="demo-banner">
+  ⚠ Dies ist ein UX/UI-Konzept-Mockup — kein funktionaler Code.
+  <a href="/geopotatlas/">← Zurück zur aktuellen App</a>
+</div>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <div style="display:flex;align-items:center;gap:8px">
+    <span class="logo">Geopotatlas <span>Pro</span></span>
+    <span class="badge-pro">KONZEPT</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Karte</a>
+    <a href="#">Potenziale</a>
+    <a href="#">Berichte</a>
+    <a href="#">API</a>
+  </div>
+  <button class="nav-cta">Demo anfragen</button>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">🌍 Geothermie Intelligence Platform</div>
+  <h1>Finden Sie wirtschaftliche<br /><span>Geothermie-Potenziale</span></h1>
+  <p>Beschreiben Sie Ihr Vorhaben in natürlicher Sprache — die Plattform zeigt Ihnen passende Standorte, potenzielle Abnehmer und wirtschaftliche Kennzahlen.</p>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <div class="search-inner">
+      <span class="search-icon">🔍</span>
+      <textarea class="search-input" rows="2"
+        placeholder="z.B. „Wir bieten mitteltiefe Geothermie im Lockergestein und suchen potenzielle Wärmeabnehmer wie Stadtwerke oder Rechenzentren im Raum NRW…""></textarea>
+      <button class="search-btn">Analysieren →</button>
+    </div>
+  </div>
+
+  <!-- Chips -->
+  <div class="chips">
+    <span class="chip">🏗 Mitteltiefe Geothermie · Lockergestein · NRW</span>
+    <span class="chip">🏙 FW-Abnehmer in Aquifer-Nähe suchen</span>
+    <span class="chip">💻 Rechenzentren als Sommer-Wärmekunden</span>
+    <span class="chip">📍 Tiefe Geothermie · Malmkarst · Bayern</span>
+    <span class="chip">🏭 Industrielle Abwärme als Konkurrenz einschätzen</span>
+    <span class="chip">📊 Wirtschaftlichkeitscheck für Bohrvorhaben</span>
+  </div>
+</div>
+
+<!-- Zielgruppen -->
+<div class="section">
+  <div class="section-title">Für wen ist Geopotatlas Pro?</div>
+  <div class="audience-grid">
+
+    <div class="audience-card geo">
+      <div class="card-icon">🧑‍🔬</div>
+      <div class="card-title">Geologen & Hydrologen</div>
+      <div class="card-desc">Schnelle Einschätzung von Aquifer-Eignung, geologischer Höffigkeit und Bohrrisiko — direkt aus Karten-Overlays ohne eigene GIS-Umgebung.</div>
+      <div class="card-tags">
+        <span class="tag tag-blue">Aquifer-Atlas</span>
+        <span class="tag tag-blue">BGR Geologie</span>
+        <span class="tag tag-blue">Höffigkeitskarte</span>
+        <span class="tag tag-blue">Zensus Wärme</span>
+      </div>
+    </div>
+
+    <div class="audience-card biz">
+      <div class="card-icon">💼</div>
+      <div class="card-title">Business Developer</div>
+      <div class="card-desc">Identifizieren Sie potenzielle Wärmeabnehmer — Stadtwerke mit Ausbauplanung, Fernwärmenetze, Rechenzentren und Industriestandorte — in einem Suchradius.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">FW-Netze (AixDHN)</span>
+        <span class="tag tag-green">Stadtwerke NRW</span>
+        <span class="tag tag-green">KWP-Cluster</span>
+        <span class="tag tag-amber">RZ-Abwärme</span>
+      </div>
+    </div>
+
+    <div class="audience-card plan">
+      <div class="card-icon">🏛</div>
+      <div class="card-title">Kommunale Planer</div>
+      <div class="card-desc">Wärmeplanung nach GEG §14: Sehen Sie welche Gebiete bereits versorgt sind, wo Geothermie wirtschaftlich sinnvoll wäre und welche Investitionsvolumina realistisch sind.</div>
+      <div class="card-tags">
+        <span class="tag tag-amber">Kommunale WP</span>
+        <span class="tag tag-amber">LANUK KWP NRW</span>
+        <span class="tag tag-amber">TG-Potenzial</span>
+        <span class="tag tag-amber">FW-Cluster</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Ergebnis-Mockup -->
+<div class="section">
+  <div class="section-title">Beispiel-Ergebnis: "Mitteltiefe Geothermie · Lockergestein · Raum Düsseldorf/Neuss"</div>
+
+  <!-- Metrics -->
+  <div class="metrics">
+    <div class="metric-card">
+      <div class="metric-val" style="color:#22d3ee">4</div>
+      <div class="metric-label">Aquifer-Gebiete in Reichweite</div>
+      <div class="metric-trend trend-up">▲ Niederrhein-Aquifer: ⭐ Primärziel</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" style="color:#22c55e">12</div>
+      <div class="metric-label">Potenzielle FW-Abnehmer (50 km)</div>
+      <div class="metric-trend trend-up">▲ 3 mit aktivem Ausbauplan</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" style="color:#f59e0b">7</div>
+      <div class="metric-label">Rechenzentren im Radius</div>
+      <div class="metric-trend" style="color:var(--muted)">Sommer-Wärme: ~45 MW potenzial</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" style="color:#f97316">2</div>
+      <div class="metric-label">Bestehende Geothermie-Anlagen</div>
+      <div class="metric-trend" style="color:var(--muted)">Referenz-Bohrungen vorhanden</div>
+    </div>
+  </div>
+
+  <div class="result-layout">
+
+    <!-- Results list -->
+    <div>
+      <div class="result-panel" style="margin-bottom:16px">
+        <div class="result-header">
+          <h3>Wärmeabnehmer — Top-Treffer</h3>
+          <span class="result-count">12 gefunden</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#5bafd6"></div>
+          <div>
+            <div class="result-name">Stadtwerke Düsseldorf</div>
+            <div class="result-meta">277 km Netz · Ausbau auf 500 km bis 2040 · 1 Mrd. € Invest</div>
+          </div>
+          <span class="result-badge badge-high">Top</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#22c55e"></div>
+          <div>
+            <div class="result-name">Stadtwerke Neuss</div>
+            <div class="result-meta">8 km · ALUNORF-Abwärme · Erweiterung geprüft</div>
+          </div>
+          <span class="result-badge badge-medium">Mittel</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#5bafd6"></div>
+          <div>
+            <div class="result-name">NEW Energie Mönchengladbach</div>
+            <div class="result-meta">Neubau geplant · KWP Dez. 2024 beschlossen</div>
+          </div>
+          <span class="result-badge badge-new">Neu</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#f97316"></div>
+          <div>
+            <div class="result-name">Fernwärme Niederrhein GmbH</div>
+            <div class="result-meta">700 km Verbundnetz · Dinslaken · Biomasse 60%</div>
+          </div>
+          <span class="result-badge badge-medium">Mittel</span>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-header">
+          <h3>Rechenzentren (Sommer-Wärme)</h3>
+          <span class="result-count">7 im Radius</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#a87cd6"></div>
+          <div>
+            <div class="result-name">Equinix DU1 · Düsseldorf</div>
+            <div class="result-meta">~8 MW Abwärme · Sommerbetrieb · 4,2 km</div>
+          </div>
+          <span class="result-badge badge-high">Nah</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#a87cd6"></div>
+          <div>
+            <div class="result-name">Interxion DUS · Neuss</div>
+            <div class="result-meta">~12 MW · Kooperationsgespräch möglich · 6,1 km</div>
+          </div>
+          <span class="result-badge badge-medium">6 km</span>
+        </div>
+        <div class="result-item">
+          <div class="result-dot" style="background:#a87cd6"></div>
+          <div>
+            <div class="result-name">3 weitere RZ</div>
+            <div class="result-meta">8–22 km Entfernung · Details auf Klick</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map mockup -->
+    <div class="map-mock">
+      <div class="map-bg">
+
+        <!-- Aquifer overlay (simulated) -->
+        <div style="position:absolute;left:15%;top:20%;width:55%;height:55%;
+          background:radial-gradient(ellipse,rgba(78,205,196,.12) 0%,transparent 70%);
+          border-radius:50%;pointer-events:none"></div>
+
+        <!-- FW network lines (simulated) -->
+        <svg class="map-lines" viewBox="0 0 600 480" preserveAspectRatio="none">
+          <line x1="240" y1="180" x2="320" y2="240" stroke="#5bafd6" stroke-width="2" stroke-dasharray="4 3" opacity=".4"/>
+          <line x1="320" y1="240" x2="380" y2="200" stroke="#5bafd6" stroke-width="2" stroke-dasharray="4 3" opacity=".4"/>
+          <line x1="240" y1="180" x2="200" y2="260" stroke="#5bafd6" stroke-width="1.5" stroke-dasharray="4 3" opacity=".3"/>
+          <circle cx="240" cy="180" r="40" fill="none" stroke="#5bafd6" stroke-width="1" opacity=".15"/>
+        </svg>
+
+        <!-- Map dots (Fernwärme) -->
+        <div class="map-dot" style="left:40%;top:37%;width:16px;height:16px;background:#5bafd6;opacity:.85">
+          <div class="map-dot-label">Stadtwerke Düsseldorf</div>
+        </div>
+        <div class="map-dot" style="left:33%;top:44%;width:10px;height:10px;background:#22c55e;opacity:.8">
+          <div class="map-dot-label">Stadtwerke Neuss</div>
+        </div>
+        <div class="map-dot" style="left:25%;top:52%;width:10px;height:10px;background:#5bafd6;opacity:.7;border:2px dashed #5bafd6;background:transparent">
+          <div class="map-dot-label">NEW Energie MG (Neu)</div>
+        </div>
+        <div class="map-dot" style="left:55%;top:30%;width:12px;height:12px;background:#f97316;opacity:.8">
+          <div class="map-dot-label">Fernwärme Niederrhein</div>
+        </div>
+        <!-- RZ dots -->
+        <div class="map-dot" style="left:42%;top:33%;width:8px;height:8px;background:#a87cd6;opacity:.85">
+          <div class="map-dot-label">Equinix DU1</div>
+        </div>
+        <div class="map-dot" style="left:36%;top:41%;width:8px;height:8px;background:#a87cd6;opacity:.75">
+          <div class="map-dot-label">Interxion DUS</div>
+        </div>
+        <!-- Bohrvorhaben -->
+        <div class="map-dot" style="left:38%;top:40%;width:14px;height:14px;background:none;border:2.5px solid #f59e0b;border-radius:0;transform:rotate(45deg)">
+        </div>
+
+        <!-- Legend overlay -->
+        <div class="map-overlay">
+          <div class="map-overlay-title">Aktive Layer</div>
+          <div class="map-legend-row">
+            <div class="map-legend-dot" style="background:#4ecdc4;opacity:.5"></div>
+            Niederrhein-Aquifer
+          </div>
+          <div class="map-legend-row">
+            <div class="map-legend-dot" style="background:#5bafd6"></div>
+            FW-Netze (Bestehend)
+          </div>
+          <div class="map-legend-row">
+            <div class="map-legend-dot" style="background:#5bafd6;border:2px dashed #5bafd6;background:transparent;width:9px;height:9px"></div>
+            FW-Netze (Geplant)
+          </div>
+          <div class="map-legend-row">
+            <div class="map-legend-dot" style="background:#a87cd6"></div>
+            Rechenzentren
+          </div>
+          <div class="map-legend-row">
+            <div style="width:8px;height:8px;border:2px solid #f59e0b;transform:rotate(45deg);flex-shrink:0"></div>
+            Ihr Bohrstandort
+          </div>
+        </div>
+
+        <!-- Search in map -->
+        <div class="map-search-bar">
+          <span style="color:var(--accent)">📍</span>
+          Düsseldorf / Niederrhein-Aquifer · 50 km Radius
+          <span style="margin-left:auto;font-size:10px;color:var(--accent)">12 Treffer</span>
+        </div>
+
+        <!-- Zoom controls (decorative) -->
+        <div style="position:absolute;right:12px;bottom:40px;display:flex;flex-direction:column;gap:1px">
+          <div style="background:var(--surface2);border:1px solid var(--border);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:4px 4px 0 0;color:var(--muted);font-size:16px;cursor:pointer">+</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:0 0 4px 4px;color:var(--muted);font-size:16px;cursor:pointer">−</div>
+        </div>
+        <div style="position:absolute;bottom:12px;right:12px;font-size:9px;color:rgba(122,154,181,.4)">© OpenStreetMap</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Features -->
+<div class="section">
+  <div class="section-title">Was Geopotatlas Pro können würde</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-size:22px;margin-bottom:10px">🤖</div>
+      <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">KI-gestützte Standortsuche</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Freitextsuche analysiert Ihr Vorhaben und aktiviert automatisch die relevanten Datenschichten — keine manuelle Layer-Konfiguration mehr.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-size:22px;margin-bottom:10px">📊</div>
+      <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">Wirtschaftlichkeits-Score</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Automatische Bewertung von Standorten nach Aquifer-Qualität, Abnehmer-Nähe, Netzlänge und Investitionsvolumen des potenziellen Kunden.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-size:22px;margin-bottom:10px">📄</div>
+      <div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:8px">PDF-Standortbericht</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">Ein-Klick-Export als professioneller Standortreport mit Karte, Potenzial-Kennzahlen und Kontaktdaten relevanter Stadtwerke.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center;padding:48px 28px 64px;max-width:600px;margin:0 auto">
+  <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:12px">
+    Interesse an der Pro-Version?
+  </div>
+  <div style="color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.7">
+    Dieses Konzept zeigt die geplante Weiterentwicklung von Geopotatlas. Wenn Sie an einem Pilotprojekt oder der Umsetzung interessiert sind, melden Sie sich.
+  </div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="mailto:hello@vencly.com" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px">Kontakt aufnehmen</a>
+    <a href="/geopotatlas/" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:12px 28px;border-radius:8px;text-decoration:none;font-family:'Poppins',sans-serif;font-weight:500;font-size:14px">← Zur aktuellen App</a>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Geopotatlas Pro — UX/UI Konzept · vencly.com</span>
+  <span>Datenquellen: BGR · AixDHN RWTH · LANUK NRW · OSM · Zensus 2022</span>
+</div>
+
+</body>
+</html>

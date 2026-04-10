@@ -41,6 +41,9 @@ const LEGEND = [
   { type:'row', keys:['heat-waste'],
     ci:true, sw:{ background:'#5bd6c8', width:10, height:10 },
     label:'Müllverbrennung (OSM)' },
+  { type:'row', keys:['heat-fw'],
+    ci:true, sw:{ background:'#f97316', width:10, height:10 },
+    label:'Heizwerk / FW-Netz (OSM)' },
   { type:'row', keys:['heat-steel'],
     ci:true, sw:{ background:'#d6c85b', width:10, height:10 },
     label:'Stahlwerk (OSM)' },
@@ -59,6 +62,15 @@ const LEGEND = [
   { type:'row', keys:['geo-huek250'],
     sw:{ background:'rgba(214,91,91,.25)', border:'1px solid #b05050' },
     label:'Festgestein >1.000 m' },
+  // ── AixDHN: Fernwärme-Netze ───────────────────────────────────────────────
+  { type:'section', keys:['aix-dhn'], label:'Fernwärme-Netze DE (AixDHN)' },
+  { type:'scale', keys:['aix-dhn'], items:[
+    { color:'#dc2626', label:'Sehr groß (≥500 GWh/a)' },
+    { color:'#f97316', label:'Groß (100–500 GWh/a)' },
+    { color:'#facc15', label:'Mittel (20–100 GWh/a)' },
+    { color:'#86efac', label:'Klein (2–20 GWh/a)' },
+    { color:'#94a3b8', label:'Sehr klein (<2 GWh/a)' },
+  ]},
   // ── KWP: TG-Potenzial Raster ───────────────────────────────────────────────
   { type:'section', keys:['kwp-energietraeger'], label:'TG-Potenzial Raster (LANUK)' },
   { type:'scale', keys:['kwp-energietraeger'], items:[
