@@ -45,7 +45,7 @@ export const useUIStore = create((set, get) => ({
   hideOsmSpinner: () => set({ osmSpinning: false }),
 
   // ── Stat counts (viewport) ──────────────────────
-  statCounts: { dc: null, pp: null, abw: null, fw: null },
+  statCounts: { dc: null, steel: null, fw_expand: null, fw15: null },
   setStatCount: (key, n) => set(s => ({ statCounts: { ...s.statCounts, [key]: n } })),
 
   // ── Stat list panel ─────────────────────────────

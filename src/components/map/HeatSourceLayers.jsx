@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CircleMarker, Popup, useMapEvents } from 'react-leaflet'
 import { useLayerStore } from '../../store/useLayerStore'
 import { useUIStore } from '../../store/useUIStore'
@@ -67,6 +67,9 @@ const HEAT_CONFIGS = [
   },
 ]
 
+// Module-level cache — survives component remounts (toggle off/on, zoom changes)
+const MARKER_CACHE = {}
+
 function getCenter(el) {
   if (el.type === 'node') return [el.lat, el.lon]
   if (el.center) return [el.center.lat, el.center.lon]
@@ -74,17 +77,16 @@ function getCenter(el) {
 }
 
 function SingleHeatLayer({ config, bbox }) {
-  const [markers, setMarkers] = useState([])
-  const cacheRef = useRef({})
+  // Initialize from module-level cache immediately — fixes initial-load blank-marker bug
+  const [markers, setMarkers] = useState(() => MARKER_CACHE[`${config.key}|${bbox}`] || [])
   const { showOsmSpinner, hideOsmSpinner, setHeatMarkers, addLog } = useUIStore.getState()
 
   useEffect(() => {
     if (!bbox) return
     const cacheKey = `${config.key}|${bbox}`
-    if (cacheRef.current[cacheKey]) {
-      const cached = cacheRef.current[cacheKey]
-      setMarkers(cached)
-      setHeatMarkers(config.key, cached.map(el => ({ lat: el._c[0], lng: el._c[1], name: el.tags?.name, tags: el.tags })))
+    if (MARKER_CACHE[cacheKey]) {
+      setMarkers(MARKER_CACHE[cacheKey])
+      setHeatMarkers(config.key, MARKER_CACHE[cacheKey].map(el => ({ lat: el._c[0], lng: el._c[1], name: el.tags?.name, tags: el.tags })))
       return
     }
     showOsmSpinner(config.label)
@@ -97,7 +99,7 @@ function SingleHeatLayer({ config, bbox }) {
         const pts = elements
           .map(el => ({ ...el, _c: getCenter(el) }))
           .filter(el => el._c)
-        cacheRef.current[cacheKey] = pts
+        MARKER_CACHE[cacheKey] = pts
         setMarkers(pts)
         setHeatMarkers(config.key, pts.map(el => ({ lat: el._c[0], lng: el._c[1], name: el.tags?.name, tags: el.tags })))
         addLog(`${config.label}: ${pts.length} Objekte geladen`, 'ok')

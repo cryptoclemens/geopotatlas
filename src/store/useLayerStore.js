@@ -21,7 +21,7 @@ const DEFAULT_LAYERS = {
   'heat-dc':         true,
   'heat-pp':         false,
   'heat-waste':      false,
-  'heat-steel':      false,
+  'heat-steel':      true,
   'heat-abw':        false,
   'heat-fw':         false,
   // Fernwärme-Märkte

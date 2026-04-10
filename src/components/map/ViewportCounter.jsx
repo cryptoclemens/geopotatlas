@@ -1,28 +1,29 @@
 import { useEffect } from 'react'
 import { useMapEvents } from 'react-leaflet'
 import { useUIStore } from '../../store/useUIStore'
-import { FW_CITIES } from '../../data/fwCities'
+import { FW_CITIES, FW_CITIES_PLANNED } from '../../data/fwCities'
 
 export default function ViewportCounter() {
   const { heatMarkers, setStatCount } = useUIStore()
 
   function countInBounds(map) {
     const bounds = map.getBounds()
-    // Count each heat source type in bounds
-    const counts = {}
-    Object.entries(heatMarkers).forEach(([key, markers]) => {
-      counts[key] = markers.filter(m => bounds.contains([m.lat, m.lng])).length
-    })
-    // Map layer keys → stat keys (OSM sources — null if layer not yet loaded)
-    const dc  = counts['heat-dc']  != null ? counts['heat-dc']  : null
-    const pp  = counts['heat-pp']  != null ? counts['heat-pp']  : null
-    const abw = counts['heat-abw'] != null ? counts['heat-abw'] : null
-    // FW cities: always countable from static data — show all dh>20 cities in bounds
-    const fw  = FW_CITIES.filter(c => c.dh >= 20 && bounds.contains([c.lat, c.lng])).length
-    setStatCount('dc',  dc)
-    setStatCount('pp',  pp)
-    setStatCount('abw', abw)
-    setStatCount('fw',  fw)
+
+    // OSM-Quellen (aus heatMarkers)
+    const dcMarkers    = heatMarkers['heat-dc']    || []
+    const steelMarkers = heatMarkers['heat-steel'] || []
+
+    const dc    = dcMarkers.filter(m => bounds.contains([m.lat, m.lng])).length
+    const steel = steelMarkers.filter(m => bounds.contains([m.lat, m.lng])).length
+
+    // Statische Fernwärme-Daten
+    const fw_expand = FW_CITIES_PLANNED.filter(c => bounds.contains([c.lat, c.lng])).length
+    const fw15      = FW_CITIES.filter(c => c.dh >= 15 && bounds.contains([c.lat, c.lng])).length
+
+    setStatCount('dc',        dc    || null)
+    setStatCount('steel',     steel || null)
+    setStatCount('fw_expand', fw_expand)
+    setStatCount('fw15',      fw15)
   }
 
   const map = useMapEvents({
@@ -30,7 +31,6 @@ export default function ViewportCounter() {
     zoomend: () => countInBounds(map),
   })
 
-  // Initial count when heatMarkers update
   useEffect(() => {
     if (map) countInBounds(map)
   }, [heatMarkers]) // eslint-disable-line

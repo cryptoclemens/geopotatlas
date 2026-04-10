@@ -21,29 +21,33 @@ import { useAuthStore } from './store/useAuthStore'
 import { useLangStore } from './store/useLangStore'
 import { useLayerStore } from './store/useLayerStore'
 import { t } from './lib/i18n'
-import { FW_CITIES } from './data/fwCities'
+import { FW_CITIES, FW_CITIES_PLANNED } from './data/fwCities'
 
 // Injected at build time via vite.config.js → define: { __APP_VERSION__ }
 // eslint-disable-next-line no-undef
 const VERSION = `v${__APP_VERSION__}`
 
 function StatTile({ statKey, label, title }) {
-  const statCounts = useUIStore(s => s.statCounts)
+  const statCounts  = useUIStore(s => s.statCounts)
   const heatMarkers = useUIStore(s => s.heatMarkers)
   const showStatList = useUIStore(s => s.showStatList)
   const val = statCounts[statKey]
 
   function handleClick() {
-    if (statKey === 'fw') {
-      const bounds = window._map?.getBounds()
-      const cities = bounds
-        ? FW_CITIES.filter(c => c.dh >= 20 && bounds.contains([c.lat, c.lng]))
-        : FW_CITIES.filter(c => c.dh >= 20)
-      const items = cities.map(c => ({ name: c.n, lat: c.lat, lng: c.lng, tags: { operator: c.op } }))
-      showStatList('fw', items)
+    const bounds = window._map?.getBounds()
+
+    if (statKey === 'fw15') {
+      const cities = FW_CITIES.filter(c => c.dh >= 15 && (!bounds || bounds.contains([c.lat, c.lng])))
+      showStatList('fw15', cities.map(c => ({ name: c.n, lat: c.lat, lng: c.lng, tags: { operator: c.op, detail: `${c.dh}% FW-Anteil` } })))
       return
     }
-    const layerMap = { dc: 'heat-dc', pp: 'heat-pp', abw: 'heat-abw' }
+    if (statKey === 'fw_expand') {
+      const cities = FW_CITIES_PLANNED.filter(c => !bounds || bounds.contains([c.lat, c.lng]))
+      showStatList('fw_expand', cities.map(c => ({ name: c.n, lat: c.lat, lng: c.lng, tags: { operator: c.op, detail: c.type === 'expand' ? 'Ausbau' : 'Neubau' } })))
+      return
+    }
+    // OSM heat markers
+    const layerMap = { dc: 'heat-dc', steel: 'heat-steel' }
     const layerKey = layerMap[statKey]
     const items = layerKey ? (heatMarkers[layerKey] || []) : []
     showStatList(statKey, items)
@@ -151,10 +155,10 @@ export default function App() {
         {/* Stat tiles + user button */}
         <div className="hdr-stats">
           <span className="potentiale-label">Potentiale</span>
-          <StatTile statKey="dc"  label="Rechenzentren"   title="Rechenzentren im Ausschnitt" />
-          <StatTile statKey="pp"  label="Kraftwerke/Ind." title="Kraftwerke/Industrie im Ausschnitt" />
-          <StatTile statKey="abw" label="Abwärme (BfEE)"  title="BfEE-Abwärmestandorte im Ausschnitt" />
-          <StatTile statKey="fw"  label="FW-Städte >20%"  title="Fernwärme-Städte >20% im Ausschnitt" />
+          <StatTile statKey="dc"        label="Rechenzentren"    title="Rechenzentren (OSM) im Ausschnitt" />
+          <StatTile statKey="steel"     label="Ind. Abwärme"     title="Industrielle Abwärme-Produzenten (Stahlwerke etc.) im Ausschnitt" />
+          <StatTile statKey="fw_expand" label="FW-Ausbau"        title="Fernwärme-Städte mit geplantem Netzausbau im Ausschnitt" />
+          <StatTile statKey="fw15"      label="FW-Städte >15%"   title="Fernwärme-Städte mit >15% FW-Anteil im Ausschnitt" />
           <button className="print-btn-hdr" title="Drucken / Exportieren" onClick={showPrintDialog}>🖨</button>
           <button
             onClick={toggleLang}
