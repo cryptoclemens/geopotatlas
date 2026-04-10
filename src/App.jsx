@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import MapView from './components/map/MapView'
 import Sidebar from './components/sidebar/Sidebar'
 import ProView from './components/pro/ProView'
+import ProResultOverlay from './components/pro/ProResultOverlay'
 import Legend from './components/ui/Legend'
 import InfoPanel from './components/ui/InfoPanel'
 import FeedbackModal from './components/ui/FeedbackModal'
@@ -18,6 +19,7 @@ import LandingPage from './components/LandingPage'
 import { useUIStore } from './store/useUIStore'
 import { useAuthStore } from './store/useAuthStore'
 import { useLangStore } from './store/useLangStore'
+import { useLayerStore } from './store/useLayerStore'
 import { t } from './lib/i18n'
 import { FW_CITIES } from './data/fwCities'
 
@@ -60,6 +62,8 @@ export default function App() {
   const [view, setView]           = useState('map')
   const [showSettings, setShowSettings] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
+  const [proResult, setProResult] = useState(null)
+  const setGroup = useLayerStore(s => s.setGroup)
 
   const { user, loading, init, profile } = useAuthStore()
   const lang       = useLangStore(s => s.lang)
@@ -75,6 +79,19 @@ export default function App() {
     const dismissed = localStorage.getItem('gpa_api_key_dismissed')
     if (!hasApiKey && !dismissed) setShowApiKeyPrompt(true)
   }, [user, hasApiKey, loading])
+
+  function handleProResult(res) {
+    if (res.layers?.length) setGroup(res.layers, true)
+    if (res.location && window._map) {
+      window._map.flyTo(
+        [res.location.lat, res.location.lng],
+        res.location.zoom || 9,
+        { duration: 1.2 }
+      )
+    }
+    setProResult(res)
+    setView('map')
+  }
 
   if (loading) return (
     <div style={{ position:'fixed', inset:0, background:'#09152a',
@@ -162,8 +179,15 @@ export default function App() {
         <MapView />
         {view === 'map' ? <Sidebar /> : (
           <div id="side" style={{ overflowY: 'auto' }}>
-            <ProView />
+            <ProView onResult={handleProResult} />
           </div>
+        )}
+        {proResult && (
+          <ProResultOverlay
+            result={proResult}
+            onClose={() => setProResult(null)}
+            onNewQuery={() => { setProResult(null); setView('pro') }}
+          />
         )}
         <InfoPanel />
         <Legend />
